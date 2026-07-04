@@ -1,8 +1,12 @@
 // Import getLocalStorage from utils.mjs
-import { setLocalStorage, getLocalStorage } from "./utils.mjs";
+import { setLocalStorage, getLocalStorage, getParam } from "./utils.mjs";
 import ProductData from "./ProductData.mjs";
 
 const dataSource = new ProductData("tents");
+
+const productId = getParam('product');
+
+console.log(dataSource.findProductById(productId));
 
 function addProductToCart(product) {
   // 1. Get whatever is currently stored
@@ -34,3 +38,20 @@ async function addToCartHandler(e) {
 document
   .getElementById("addToCart")
   .addEventListener("click", addToCartHandler);
+
+/*
+
+After the index.html file is able to call each product ID in urlsearchparams
+then remove code and use the one below
+
+import { getParam } from './utils.mjs';
+import ProductData from './ProductData.mjs';
+import ProductDetails from './ProductDetails.mjs';
+
+
+const productId = getParam('product');
+const dataSource = new ProductData('tents');
+
+const product = new ProductDetails(productId, dataSource);
+product.init();
+*/
