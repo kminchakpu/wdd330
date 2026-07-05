@@ -20,8 +20,16 @@ export default class ProductDetails {
       .addEventListener('click', this.addProductToCart.bind(this));
   }
 
-  addProductToCart() {
-    const cartItems = getLocalStorage("so-cart") || [];
+    addProductToCart() {
+    const currentCart = getLocalStorage("so-cart");
+    
+    let cartItems = [];
+    if (Array.isArray(currentCart)) {
+      cartItems = currentCart;
+    } else if (currentCart) {
+      cartItems = [currentCart]; 
+    }
+
     cartItems.push(this.product);
     setLocalStorage("so-cart", cartItems);
   }
