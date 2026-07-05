@@ -1,45 +1,14 @@
-export default class ProductData {
-  constructor(category) {
-    this.category = category;
-    this.path = `../json/${this.category}.json`;
-  }
-  getData() {
-    return fetch(this.path)
-      .then(convertToJson)
-      .then((data) => data);
-  }
-  async findProductById(id) {
-    const products = await this.getData();
-    return products.find((item) => item.Id === id);
-  }
-}
+import { getLocalStorage, setLocalStorage } from "./utils.mjs";
 
-function addProductToCart(product) {
-  // 1. Get whatever is currently stored
-  const currentCart = getLocalStorage("so-cart");
+export default class ProductDetails {
 
-  // 2. Ensure we are working with a valid array list
-  let cartArray = [];
-  if (Array.isArray(currentCart)) {
-    cartArray = currentCart;
-  } else if (currentCart) {
-    // If it's an old single object, wrap it in an array so we don't lose it
-    cartArray = [currentCart];
+  constructor(productId, dataSource) {
+    this.productId = productId;
+    this.product = {};
+    this.dataSource = dataSource;
   }
 
-  // 3. Push the new product into our verified array list
-  cartArray.push(product);
-
-  // 4. Save the clean list back to localStorage
-  setLocalStorage("so-cart", cartArray);
-}
-
-
-// renderProductDetails()
-
-
-/*
-async init() {
+  async init() {
     // use the datasource to get the details for the current product. findProductById will return a promise! use await or .then() to process it
     this.product = await this.dataSource.findProductById(this.productId);
     // the product details are needed before rendering the HTML
@@ -76,5 +45,3 @@ function productDetailsTemplate(product) {
 
   document.getElementById('addToCart').dataset.id = product.Id;
 }
-
-*/
