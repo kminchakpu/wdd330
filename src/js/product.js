@@ -8,7 +8,7 @@ const productID = getParam("product");
 const product = new ProductDetails(productID, dataSource);
 product.init();
 
-function addProductToCart(product) {
+function addProductToCart(productitem) {
   // 1. Get whatever is currently stored
   const currentCart = getLocalStorage("so-cart");
 
@@ -30,6 +30,6 @@ function addProductToCart(product) {
 
 // add to cart button event handler
 async function addToCartHandler(e) {
-  const product = await dataSource.findProductById(e.target.dataset.id);
-  addProductToCart(product);
+  const productitem = await dataSource.findProductById(e.target.dataset.id);
+  addProductToCart(productitem);
 }
