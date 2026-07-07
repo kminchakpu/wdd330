@@ -1,10 +1,8 @@
 import { renderListWithTemplate } from "./utils.mjs";
 
-// Template function returning a raw HTML string for a single product card
 function productCardTemplate(product) {
     let imagePath = product.Image;
 
-    // Direct fix for missing tent images
     if (product.NameWithoutBrand === "Ajax Tent - 2-Person, 3-Season" || product.Id === "880RR-2") {
         imagePath = "images/tents/marmot-ajax-tent-3-person-3-season-in-pale-pumpkin-terracotta~p~880rr_01~320.jpg";
     } else if (product.NameWithoutBrand === "Talus Tent - 3-Person, 3-Season" || product.Id === "985RF") {
@@ -21,7 +19,6 @@ function productCardTemplate(product) {
   </li>`;
 }
 
-// Main ProductList Orchestrator Class
 export default class ProductList {
     constructor(category, dataSource, listElement) {
         this.category = category;
@@ -30,10 +27,7 @@ export default class ProductList {
     }
 
     async init() {
-        // Fetch data from local JSON files via the dataSource module
         const list = await this.dataSource.getData();
-
-        // Render the final filtered list using our helper utility
         this.renderList(list);
     }
 
