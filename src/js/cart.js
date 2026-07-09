@@ -7,14 +7,18 @@ function renderCartContents() {
   const productList = document.querySelector(".product-list");
 
   // Display a message if the cart is empty.
-  if (cartItems.length === 0) {
-    productList.innerHTML = `
-      <li class="cart-card divider">
-        <p>Your cart is empty.</p>
-      </li>
-    `;
-    return;
-  }
+ if (cartItems.length === 0) {
+  productList.innerHTML = `
+    <li class="empty-cart-card">
+      <h2>Your Cart is Empty</h2>
+      <p>Looks like you haven't added any products yet.</p>
+      <a href="../product_listing/index.html" class="continue-shopping">
+        Continue Shopping
+      </a>
+    </li>
+  `;
+  return;
+}
 
   // Render the cart items.
   const htmlItems = cartItems.map((item) => cartItemTemplate(item));
