@@ -436,3 +436,47 @@ footer {
 .cart-count.show {
   visibility: visible;
 }
+
+/* ==========================
+   Product Detail Discount
+========================== */
+
+.product-detail__pricing {
+  margin: 1rem 0;
+}
+
+.product-detail__retail {
+  color: #777;
+  font-size: 1rem;
+  margin-bottom: .4rem;
+}
+
+.product-detail__retail s {
+  color: #777;
+}
+
+.product-detail__price {
+  color: #d62828;
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: .8rem;
+}
+
+.product-image-wrapper {
+  position: relative;
+}
+
+.discount-badge {
+  display: none;
+  position: absolute;
+  top: 15px;
+  left: 15px;
+
+  background: #d62828;
+  color: white;
+
+  padding: .45rem .9rem;
+  border-radius: 999px;
+  font-size: .85rem;
+  font-weight: bold;
+}
