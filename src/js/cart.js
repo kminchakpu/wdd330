@@ -1,15 +1,15 @@
-import { getLocalStorage } from "./utils.mjs";
+import { getLocalStorage, setLocalStorage } from "./utils.mjs";
 import updateCartCount from "./cartCount.mjs";
 
 function renderCartContents() {
-  // Get cart items from localStorage
+  // Get cart items
   const cartItems = getLocalStorage("so-cart") || [];
 
   const productList = document.querySelector(".product-list");
   const cartFooter = document.querySelector(".cart-footer");
   const cartTotal = document.querySelector(".cart-total");
 
-  // If the cart is empty
+  // Empty cart
   if (cartItems.length === 0) {
     productList.innerHTML = `
       <li class="empty-cart-card">
@@ -22,30 +22,38 @@ function renderCartContents() {
       </li>
     `;
 
-    // Keep the footer hidden
     cartFooter.classList.add("hide");
+    updateCartCount();
     return;
   }
 
-  // Render the cart items
-  const htmlItems = cartItems.map(cartItemTemplate);
-  productList.innerHTML = htmlItems.join("");
+  // Render items
+  productList.innerHTML = cartItems.map(cartItemTemplate).join("");
 
-  // Calculate the total
+  // Calculate total
   const total = cartItems.reduce((sum, item) => {
     return sum + Number(item.FinalPrice);
   }, 0);
 
-  // Display the total
   cartTotal.innerHTML = `Total: <strong>$${total.toFixed(2)}</strong>`;
-
-  // Show the footer
   cartFooter.classList.remove("hide");
+
+  // Attach listeners to remove buttons
+  document.querySelectorAll(".remove-item").forEach((button) => {
+    button.addEventListener("click", removeItemFromCart);
+  });
+
+  updateCartCount();
 }
 
 function cartItemTemplate(item) {
   return `
     <li class="cart-card">
+
+      <span class="remove-item" data-id="${item.Id}" title="Remove item">
+        &times;
+      </span>
+
       <a href="#" class="cart-card__image">
         <img src="${item.Image}" alt="${item.Name}">
       </a>
@@ -60,5 +68,22 @@ function cartItemTemplate(item) {
     </li>
   `;
 }
+
+function removeItemFromCart(event) {
+  const id = event.target.dataset.id;
+
+  let cartItems = getLocalStorage("so-cart") || [];
+
+  // Remove only the first matching item
+  const index = cartItems.findIndex((item) => item.Id == id);
+
+  if (index !== -1) {
+    cartItems.splice(index, 1);
+  }
+
+  setLocalStorage("so-cart", cartItems);
+
+  renderCartContents();
+}
+
 renderCartContents();
-updateCartCount();

@@ -21,8 +21,8 @@ function productCardTemplate(product) {
   // Calculate the discount percentage
   const discountPercent = isDiscounted
     ? Math.round(
-        ((product.SuggestedRetailPrice - product.FinalPrice) /
-          product.SuggestedRetailPrice) *
+        ((Number(product.SuggestedRetailPrice) - Number(product.FinalPrice)) /
+          Number(product.SuggestedRetailPrice)) *
           100
       )
     : 0;
@@ -35,8 +35,12 @@ function productCardTemplate(product) {
           : ""
       }
 
-      <a href="product_pages/?product=${product.Id}">
-        <img src="${imagePath}" alt="Image of ${product.Name}" loading="lazy">
+      <a href="/product_pages/index.html?product=${product.Id}">
+        <img
+          src="${imagePath}"
+          alt="Image of ${product.Name}"
+          loading="lazy"
+        >
 
         <h2 class="card__brand">${product.Brand.Name}</h2>
 
@@ -46,13 +50,15 @@ function productCardTemplate(product) {
           isDiscounted
             ? `
               <p class="product-card__retail-price">
-                <s>$${product.SuggestedRetailPrice.toFixed(2)}</s>
+                <s>$${Number(product.SuggestedRetailPrice).toFixed(2)}</s>
               </p>
             `
             : ""
         }
 
-        <p class="product-card__price">$${product.FinalPrice.toFixed(2)}</p>
+        <p class="product-card__price">$${Number(product.FinalPrice).toFixed(
+          2
+        )}</p>
       </a>
     </li>
   `;
