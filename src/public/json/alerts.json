@@ -1,0 +1,14 @@
+[
+  {
+    "message": "🔥 Summer Sale! Save up to 30% on selected tents.",
+    "background": "#402E2A",
+    "color": "#ffffff",
+    "font-size": "16px"
+  },
+  {
+    "message": "🚚 Free shipping on orders over $100.",
+    "background": "#264653",
+    "color": "#ffffff",
+    "font-size": "16px"
+  }
+]

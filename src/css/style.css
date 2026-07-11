@@ -452,19 +452,20 @@ footer {
   margin-bottom: .8rem;
 }
 
+.product-card {
+  position: relative;
+}
+
 .product-image-wrapper {
   position: relative;
 }
 
 .discount-badge {
-  display: none;
   position: absolute;
   top: 15px;
   left: 15px;
-
   background: #d62828;
   color: white;
-
   padding: .45rem .9rem;
   border-radius: 999px;
   font-size: .85rem;
@@ -473,7 +474,6 @@ footer {
 
 .cart-card {
   position: relative;
-
   display: grid;
   grid-template-columns: 150px 1fr 100px;
   gap: 1rem;
@@ -540,4 +540,15 @@ footer {
   .cart-list {
     grid-template-columns: 1fr;
   }
+}
+
+.alert-list {
+    width: 100%;
+}
+
+.alert-list p {
+    padding: 1rem;
+    margin: 0;
+    text-align: center;
+    font-family: 'Play', sans-serif;
 }
