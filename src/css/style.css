@@ -203,19 +203,6 @@ button {
 
 /* Discount badge */
 
-.discount-badge {
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  background: #d62828;
-  color: white;
-  padding: .35rem .75rem;
-  border-radius: 999px;
-  font-size: .75rem;
-  font-weight: bold;
-  z-index: 5;
-}
-
 .product-card__retail-price {
   margin: .25rem 0;
   color: #777;
@@ -452,9 +439,6 @@ footer {
   margin-bottom: .8rem;
 }
 
-.product-card {
-  position: relative;
-}
 
 .product-image-wrapper {
   position: relative;
@@ -464,7 +448,7 @@ footer {
   position: absolute;
   top: 15px;
   left: 15px;
-  background: #d62828;
+  background: #D81159;
   color: white;
   padding: .45rem .9rem;
   border-radius: 999px;
@@ -495,7 +479,7 @@ footer {
   justify-content: center;
   align-items: center;
   border-radius: 50%;
-  background: #d62828;
+  background: #D81159;
   color: white;
   font-size: 1rem;
   font-weight: bold;
