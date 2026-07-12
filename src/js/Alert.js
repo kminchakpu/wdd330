@@ -13,7 +13,6 @@ export default class Alert {
 
       return await response.json();
     } catch (error) {
-      console.error("Error loading alerts:", error);
       return [];
     }
   }

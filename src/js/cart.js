@@ -31,9 +31,10 @@ function renderCartContents() {
   productList.innerHTML = cartItems.map(cartItemTemplate).join("");
 
   // Calculate total
-  const total = cartItems.reduce((sum, item) => {
-    return sum + Number(item.FinalPrice);
-  }, 0);
+  const total = cartItems.reduce(
+    (sum, item) => sum + Number(item.FinalPrice),
+    0,
+  );
 
   cartTotal.innerHTML = `Total: <strong>$${total.toFixed(2)}</strong>`;
   cartFooter.classList.remove("hide");
