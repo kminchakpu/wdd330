@@ -535,3 +535,51 @@ footer {
   text-align: center;
   font-family: "Play", sans-serif;
 }
+
+/* Category Grid */
+
+.categories {
+  margin-top: 2rem;
+  padding: 1rem;
+}
+
+.categories h2 {
+  font-family: "Play", sans-serif;
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+}
+
+.category-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+.category-card {
+  display: block;
+  text-align: center;
+  text-decoration: none;
+  padding: 1rem;
+  color: inherit;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: transform 0.2s ease;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.category-card:hover {
+  transform: translateY(-4px);
+}
+
+.category-card img {
+  width: 200px;
+  height: auto;
+  object-fit: cover;
+}
+
+.category-card h3 {
+  padding: 1rem;
+  font-family: "Play", sans-serif;
+}

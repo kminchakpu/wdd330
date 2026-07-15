@@ -1,15 +1,9 @@
-import { loadHeaderFooter} from "./utils.mjs";
-import ProductData from "./ProductData.mjs";
-import ProductList from "./ProductList.mjs";
+import { loadHeaderFooter } from "./utils.mjs";
 import updateCartCount from "./cartCount.mjs";
 import Alert from "./Alert.js";
 
-const dataSource = new ProductData("tents");
-const listElement = document.querySelector(".product-list");
-const productList = new ProductList("tents", dataSource, listElement);
-productList.init();
+loadHeaderFooter();
 updateCartCount();
 
 const alert = new Alert();
 alert.renderAlerts();
-loadHeaderFooter();
