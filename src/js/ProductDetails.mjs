@@ -31,57 +31,88 @@ export default class ProductDetails {
 }
 
 function productDetailsTemplate(product) {
-  document.querySelector("h2").textContent = product.Brand.Name;
-  document.querySelector("h3").textContent = product.NameWithoutBrand;
+  // Safe header checks
+  const brandDOM = document.querySelector("h2");
+  if (brandDOM) {
+    brandDOM.textContent = product.Brand?.Name || product.Brand || "";
+  }
 
+  const nameDOM = document.querySelector("h3");
+  if (nameDOM) {
+    nameDOM.textContent = product.NameWithoutBrand || product.Name;
+  }
+
+  // 1. SAFE FALLBACK FOR IMAGES
   const productImage = document.getElementById("productImage");
-  productImage.src = product.Image;
-  productImage.alt = product.NameWithoutBrand;
+  if (productImage) {
+    const imagePath = product.Images && product.Images.PrimaryLarge
+      ? product.Images.PrimaryLarge
+      : product.Image;
 
-  // Determine discount
-  const isDiscounted =
-    Number(product.FinalPrice) < Number(product.SuggestedRetailPrice);
+    productImage.src = imagePath;
+    productImage.alt = product.NameWithoutBrand || product.Name;
+  }
+
+  // 2. SAFE FALLBACK FOR PRICES
+  const finalPrice = Number(product.FinalPrice || product.ListPrice || 0);
+  const retailPriceValue = Number(product.SuggestedRetailPrice || product.ListPrice || 0);
+
+  // Determine discount safely
+  const isDiscounted = finalPrice < retailPriceValue;
 
   const discountPercent = isDiscounted
-    ? Math.round(
-        ((product.SuggestedRetailPrice - product.FinalPrice) /
-          product.SuggestedRetailPrice) *
-          100
-      )
+    ? Math.round(((retailPriceValue - finalPrice) / retailPriceValue) * 100)
     : 0;
 
-  // Display discount badge
+  // Display discount badge safely
   const badge = document.getElementById("discountBadge");
-
-  if (isDiscounted) {
-    badge.innerHTML = `${discountPercent}% OFF`;
-    badge.style.display = "inline-block";
-  } else {
-    badge.style.display = "none";
+  if (badge) {
+    if (isDiscounted) {
+      badge.innerHTML = `${discountPercent}% OFF`;
+      badge.style.display = "inline-block";
+    } else {
+      badge.style.display = "none";
+    }
   }
 
-  // Original retail price
-  const retailPrice = document.getElementById("retailPrice");
-
-  if (isDiscounted) {
-    retailPrice.innerHTML = `<s>$${product.SuggestedRetailPrice.toFixed(2)}</s>`;
-    retailPrice.style.display = "block";
-  } else {
-    retailPrice.style.display = "none";
+  // Original retail price safely
+  const retailPriceDOM = document.getElementById("retailPrice");
+  if (retailPriceDOM) {
+    if (isDiscounted) {
+      retailPriceDOM.innerHTML = `<s>$${retailPriceValue.toFixed(2)}</s>`;
+      retailPriceDOM.style.display = "block";
+    } else {
+      retailPriceDOM.style.display = "none";
+    }
   }
 
-  // Final price
-  document.getElementById(
-    "productPrice"
-  ).textContent = `$${product.FinalPrice.toFixed(2)}`;
+  // Final price display safely
+  const priceDOM = document.getElementById("productPrice");
+  if (priceDOM) {
+    priceDOM.textContent = `$${finalPrice.toFixed(2)}`;
+  }
 
-  document.getElementById("productColor").textContent =
-    product.Colors[0].ColorName;
+  // 3. SAFE FALLBACK FOR COLORS
+  const colorDOM = document.getElementById("productColor");
+  if (colorDOM) {
+    if (product.Colors && product.Colors.length > 0) {
+      colorDOM.textContent = product.Colors[0].ColorName;
+    } else {
+      colorDOM.textContent = "N/A";
+    }
+  }
 
-  document.getElementById("productDesc").innerHTML =
-    product.DescriptionHtmlSimple;
+  // Description safely
+  const descDOM = document.getElementById("productDesc");
+  if (descDOM) {
+    descDOM.innerHTML = product.DescriptionHtmlSimple || product.Description || "";
+  }
 
-  document.getElementById("addToCart").dataset.id = product.Id;
+  // Add to Cart button dataset safely
+  const addToCartBtn = document.getElementById("addToCart");
+  if (addToCartBtn) {
+    addToCartBtn.dataset.id = product.Id;
+  }
 }
 
 // ************* Alternative Display Product Details Method *******************

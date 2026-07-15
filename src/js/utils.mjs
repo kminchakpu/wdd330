@@ -56,3 +56,33 @@ export function renderListWithTemplate(
 
   parentElement.insertAdjacentHTML(position, htmlStrings.join(""));
 }
+
+// --- NEW FUNCTIONS FOR HEADER & FOOTER DYNAMICS ---
+
+// Helper to fetch a text/html file path
+async function loadTemplate(path) {
+  const response = await fetch(path);
+  if (response.ok) {
+    const html = await response.text();
+    return html;
+  }
+}
+
+// Dynamically render the header and footer
+export async function renderHeaderFooter() {
+  // Grab the header and footer templates
+  const headerTemplate = await loadTemplate("/partials/header.html");
+  const footerTemplate = await loadTemplate("/partials/footer.html");
+
+  // Find where they belong in the DOM
+  const headerElement = document.querySelector("#main-header");
+  const footerElement = document.querySelector("#main-footer");
+
+  // Render them if the elements exist
+  if (headerElement && headerTemplate) {
+    headerElement.innerHTML = headerTemplate;
+  }
+  if (footerElement && footerTemplate) {
+    footerElement.innerHTML = footerTemplate;
+  }
+}

@@ -91,7 +91,7 @@ p {
   margin-top: -1.3em;
 }
 
-.logo--square > div {
+.logo--square>div {
   margin-top: -1.7em;
 }
 
@@ -179,7 +179,7 @@ button {
 
 .product-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 6px 16px rgba(0,0,0,.15);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, .15);
 }
 
 .product-card img {
@@ -466,7 +466,7 @@ footer {
   background: #fff;
   border: 1px solid #ddd;
   border-radius: 10px;
-  box-shadow: 0 3px 10px rgba(0,0,0,.08);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, .08);
 }
 
 .remove-item {
@@ -527,12 +527,49 @@ footer {
 }
 
 .alert-list {
-    width: 100%;
+  width: 100%;
 }
 
 .alert-list p {
-    padding: 1rem;
-    margin: 0;
-    text-align: center;
-    font-family: 'Play', sans-serif;
+  padding: 1rem;
+  margin: 0;
+  text-align: center;
+  font-family: 'Play', sans-serif;
+}
+
+/* Container for the category cards */
+.category-grid {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Individual category card wrapper */
+.category-card {
+  text-decoration: none;
+  color: #303030;
+  text-align: center;
+  flex: 1 1 150px;
+  /* Allows cards to shrink/grow and wrap on small screens */
+  max-width: 200px;
+}
+
+/* Constrain the massive SVG icons */
+.category-card img {
+  width: 100%;
+  max-width: 120px;
+  /* Limits their width so they stay small and uniform */
+  height: auto;
+  display: block;
+  margin: 0 auto 10px;
+  transition: transform 0.2s ease;
+}
+
+/* A nice little hover effect for interactivity */
+.category-card:hover img {
+  transform: scale(1.05);
 }
