@@ -1,20 +1,10 @@
 import { renderListWithTemplate } from "./utils.mjs";
 
 function productCardTemplate(product) {
-  let imagePath = product.Image;
+  // Use the image returned by the API
+  const imagePath = product.Images?.PrimaryMedium || "";
 
-  // Normalize image paths
-  if (imagePath.startsWith("../")) {
-    imagePath = imagePath.replace("../", "/");
-  }
-
-  // Fix known incorrect image path in the product data
-  if (product.Id === "880RR") {
-    imagePath =
-      "/images/tents/marmot-ajax-tent-3-person-3-season-in-pale-pumpkin-terracotta~p~880rr_01~320.jpg";
-  }
-
-  // Determine if the product is discounted
+  // Check if the product is discounted
   const isDiscounted =
     Number(product.FinalPrice) < Number(product.SuggestedRetailPrice);
 
@@ -38,7 +28,7 @@ function productCardTemplate(product) {
       <a href="/product_pages/index.html?product=${product.Id}">
         <img
           src="${imagePath}"
-          alt="Image of ${product.Name}"
+          alt="${product.Name}"
           loading="lazy"
         >
 
@@ -56,9 +46,9 @@ function productCardTemplate(product) {
             : ""
         }
 
-        <p class="product-card__price">$${Number(product.FinalPrice).toFixed(
-          2
-        )}</p>
+        <p class="product-card__price">
+          $${Number(product.FinalPrice).toFixed(2)}
+        </p>
       </a>
     </li>
   `;
@@ -72,7 +62,7 @@ export default class ProductList {
   }
 
   async init() {
-    const list = await this.dataSource.getData();
+    const list = await this.dataSource.getData(this.category);
     this.renderList(list);
   }
 
