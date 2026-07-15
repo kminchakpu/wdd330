@@ -1,3 +1,4 @@
+import { loadHeaderFooter} from "./utils.mjs";
 import { getLocalStorage, setLocalStorage } from "./utils.mjs";
 import updateCartCount from "./cartCount.mjs";
 
@@ -83,6 +84,8 @@ function productDetailsTemplate(product) {
 
   document.getElementById("addToCart").dataset.id = product.Id;
 }
+
+loadHeaderFooter();
 
 // ************* Alternative Display Product Details Method *******************
 // function productDetailsTemplate(product) {
