@@ -1,3 +1,4 @@
+import { loadHeaderFooter} from "./utils.mjs";
 import ProductData from "./ProductData.mjs";
 import ProductList from "./ProductList.mjs";
 import updateCartCount from "./cartCount.mjs";
@@ -11,3 +12,4 @@ updateCartCount();
 
 const alert = new Alert();
 alert.renderAlerts();
+loadHeaderFooter();

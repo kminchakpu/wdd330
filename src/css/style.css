@@ -161,7 +161,6 @@ button {
   padding: 1rem;
 }
 
-
 .product-list a {
   display: block;
   text-decoration: none;
@@ -174,12 +173,14 @@ button {
   border: 1px solid var(--light-grey);
   padding: 1rem;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-  transition: transform .2s ease, box-shadow .2s ease;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 .product-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 6px 16px rgba(0,0,0,.15);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
 }
 
 .product-card img {
@@ -192,21 +193,21 @@ button {
 .card__brand {
   font-size: var(--small-font);
   font-weight: bold;
-  margin-bottom: .35rem;
+  margin-bottom: 0.35rem;
 }
 
 .card__name {
   font-size: 1rem;
-  margin-bottom: .75rem;
+  margin-bottom: 0.75rem;
   min-height: 2.5em;
 }
 
 /* Discount badge */
 
 .product-card__retail-price {
-  margin: .25rem 0;
+  margin: 0.25rem 0;
   color: #777;
-  font-size: .9rem;
+  font-size: 0.9rem;
 }
 
 .product-card__retail-price s {
@@ -214,7 +215,7 @@ button {
 }
 
 .product-card__price {
-  margin-top: .25rem;
+  margin-top: 0.25rem;
   color: #d62828;
   font-size: 1.2rem;
   font-weight: bold;
@@ -337,7 +338,6 @@ footer {
 =========================== */
 
 @media screen and (min-width: 500px) {
-
   body {
     max-width: 1080px;
     margin: auto;
@@ -404,7 +404,7 @@ footer {
   color: #4b2e05;
 
   border-radius: 50%;
-  font-size: .8rem;
+  font-size: 0.8rem;
   font-weight: bold;
 
   visibility: hidden;
@@ -425,7 +425,7 @@ footer {
 .product-detail__retail {
   color: #777;
   font-size: 1rem;
-  margin-bottom: .4rem;
+  margin-bottom: 0.4rem;
 }
 
 .product-detail__retail s {
@@ -436,9 +436,8 @@ footer {
   color: #d62828;
   font-size: 2rem;
   font-weight: bold;
-  margin-bottom: .8rem;
+  margin-bottom: 0.8rem;
 }
-
 
 .product-image-wrapper {
   position: relative;
@@ -448,11 +447,11 @@ footer {
   position: absolute;
   top: 15px;
   left: 15px;
-  background: #D81159;
+  background: #d81159;
   color: white;
-  padding: .45rem .9rem;
+  padding: 0.45rem 0.9rem;
   border-radius: 999px;
-  font-size: .85rem;
+  font-size: 0.85rem;
   font-weight: bold;
 }
 
@@ -466,7 +465,7 @@ footer {
   background: #fff;
   border: 1px solid #ddd;
   border-radius: 10px;
-  box-shadow: 0 3px 10px rgba(0,0,0,.08);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
 }
 
 .remove-item {
@@ -479,7 +478,7 @@ footer {
   justify-content: center;
   align-items: center;
   border-radius: 50%;
-  background: #D81159;
+  background: #d81159;
   color: white;
   font-size: 1rem;
   font-weight: bold;
@@ -527,12 +526,12 @@ footer {
 }
 
 .alert-list {
-    width: 100%;
+  width: 100%;
 }
 
 .alert-list p {
-    padding: 1rem;
-    margin: 0;
-    text-align: center;
-    font-family: 'Play', sans-serif;
+  padding: 1rem;
+  margin: 0;
+  text-align: center;
+  font-family: "Play", sans-serif;
 }
