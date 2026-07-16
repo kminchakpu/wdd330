@@ -55,8 +55,6 @@ export function renderListWithTemplate(
   }
 
   parentElement.insertAdjacentHTML(position, htmlStrings.join(""));
-<<<<<<< HEAD
-=======
 }
 
 // Render a data using a template function
@@ -90,5 +88,4 @@ export async function loadHeaderFooter() {
   const footerTemplate = await loadTemplate("/partials/footer.html");
   const footerElement = document.querySelector("#main-footer");
   renderWithTemplate(footerTemplate, footerElement);
->>>>>>> b981eb30dd3830253c0ea1dfdfee97d77a645f6f
 }
