@@ -18,9 +18,18 @@ export default class ProductDetails {
       .addEventListener("click", this.addProductToCart.bind(this));
   }
 
+  //Check if the item is in the cart before adding. if the item exists, it updates the quantity.
   addProductToCart() {
     const cartItems = getLocalStorage("so-cart") || [];
-    cartItems.push(this.product);
+    const found = cartItems.find(item => item.Id === this.product.Id);
+
+    if (!found) {
+      this.product.quantity = 1;
+      cartItems.push(this.product);
+    } else {
+      changeQnty(found);
+    }
+    document.querySelector(".cart-card__quantity").innerHTML = `qty: ${quantity}`;
     setLocalStorage("so-cart", cartItems);
     updateCartCount();
   }
@@ -48,10 +57,10 @@ function productDetailsTemplate(product) {
 
   const discountPercent = isDiscounted
     ? Math.round(
-        ((Number(product.SuggestedRetailPrice) - Number(product.FinalPrice)) /
-          Number(product.SuggestedRetailPrice)) *
-          100
-      )
+      ((Number(product.SuggestedRetailPrice) - Number(product.FinalPrice)) /
+        Number(product.SuggestedRetailPrice)) *
+      100
+    )
     : 0;
 
   // Discount Badge
@@ -91,4 +100,14 @@ function productDetailsTemplate(product) {
 
   // Add to Cart Button
   document.getElementById("addToCart").dataset.id = product.Id;
+
+}
+
+//Change the quantity of product in the cart
+function changeQnty(product) {
+  if (!product.quantity) {
+    product.quantity = 1;
+  } else {
+    product.quantity++;
+  }
 }
