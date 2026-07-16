@@ -2,6 +2,6 @@ export default class CheckoutProcess {
   constructor() {}
 
   init() {
-    console.log("Checkout page loaded");
+    // Initialization logic for the checkout page
   }
 }

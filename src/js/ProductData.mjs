@@ -6,21 +6,6 @@ function convertToJson(res) {
   }
 }
 
-<<<<<<< HEAD
-export default class ProductData {
-  constructor(category) {
-    this.category = category;
-    this.path = `/json/${this.category}.json`;
-  }
-  getData() {
-    return fetch(this.path)
-      .then(convertToJson)
-      .then((data) => data);
-  }
-  async findProductById(id) {
-    const products = await this.getData();
-    return products.find((item) => item.Id === id);
-=======
 const baseURL = import.meta.env.VITE_SERVER_URL;
 
 export default class ProductData {
@@ -42,6 +27,5 @@ export default class ProductData {
     const data = await convertToJson(response);
 
     return data.Result;
->>>>>>> b981eb30dd3830253c0ea1dfdfee97d77a645f6f
   }
 }

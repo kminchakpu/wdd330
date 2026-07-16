@@ -161,10 +161,6 @@ button {
   padding: 1rem;
 }
 
-<<<<<<< HEAD
-
-=======
->>>>>>> b981eb30dd3830253c0ea1dfdfee97d77a645f6f
 .product-list a {
   display: block;
   text-decoration: none;
@@ -177,22 +173,14 @@ button {
   border: 1px solid var(--light-grey);
   padding: 1rem;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-<<<<<<< HEAD
-  transition: transform .2s ease, box-shadow .2s ease;
-=======
   transition:
     transform 0.2s ease,
     box-shadow 0.2s ease;
->>>>>>> b981eb30dd3830253c0ea1dfdfee97d77a645f6f
 }
 
 .product-card:hover {
   transform: translateY(-4px);
-<<<<<<< HEAD
-  box-shadow: 0 6px 16px rgba(0,0,0,.15);
-=======
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
->>>>>>> b981eb30dd3830253c0ea1dfdfee97d77a645f6f
 }
 
 .product-card img {
@@ -205,35 +193,21 @@ button {
 .card__brand {
   font-size: var(--small-font);
   font-weight: bold;
-<<<<<<< HEAD
-  margin-bottom: .35rem;
-=======
   margin-bottom: 0.35rem;
->>>>>>> b981eb30dd3830253c0ea1dfdfee97d77a645f6f
 }
 
 .card__name {
   font-size: 1rem;
-<<<<<<< HEAD
-  margin-bottom: .75rem;
-=======
   margin-bottom: 0.75rem;
->>>>>>> b981eb30dd3830253c0ea1dfdfee97d77a645f6f
   min-height: 2.5em;
 }
 
 /* Discount badge */
 
 .product-card__retail-price {
-<<<<<<< HEAD
-  margin: .25rem 0;
-  color: #777;
-  font-size: .9rem;
-=======
   margin: 0.25rem 0;
   color: #777;
   font-size: 0.9rem;
->>>>>>> b981eb30dd3830253c0ea1dfdfee97d77a645f6f
 }
 
 .product-card__retail-price s {
@@ -241,11 +215,7 @@ button {
 }
 
 .product-card__price {
-<<<<<<< HEAD
-  margin-top: .25rem;
-=======
   margin-top: 0.25rem;
->>>>>>> b981eb30dd3830253c0ea1dfdfee97d77a645f6f
   color: #d62828;
   font-size: 1.2rem;
   font-weight: bold;
@@ -368,10 +338,6 @@ footer {
 =========================== */
 
 @media screen and (min-width: 500px) {
-<<<<<<< HEAD
-
-=======
->>>>>>> b981eb30dd3830253c0ea1dfdfee97d77a645f6f
   body {
     max-width: 1080px;
     margin: auto;
@@ -438,11 +404,7 @@ footer {
   color: #4b2e05;
 
   border-radius: 50%;
-<<<<<<< HEAD
-  font-size: .8rem;
-=======
   font-size: 0.8rem;
->>>>>>> b981eb30dd3830253c0ea1dfdfee97d77a645f6f
   font-weight: bold;
 
   visibility: hidden;
@@ -463,11 +425,7 @@ footer {
 .product-detail__retail {
   color: #777;
   font-size: 1rem;
-<<<<<<< HEAD
-  margin-bottom: .4rem;
-=======
   margin-bottom: 0.4rem;
->>>>>>> b981eb30dd3830253c0ea1dfdfee97d77a645f6f
 }
 
 .product-detail__retail s {
@@ -478,16 +436,9 @@ footer {
   color: #d62828;
   font-size: 2rem;
   font-weight: bold;
-<<<<<<< HEAD
-  margin-bottom: .8rem;
-}
-
-
-=======
   margin-bottom: 0.8rem;
 }
 
->>>>>>> b981eb30dd3830253c0ea1dfdfee97d77a645f6f
 .product-image-wrapper {
   position: relative;
 }
@@ -496,19 +447,11 @@ footer {
   position: absolute;
   top: 15px;
   left: 15px;
-<<<<<<< HEAD
-  background: #D81159;
-  color: white;
-  padding: .45rem .9rem;
-  border-radius: 999px;
-  font-size: .85rem;
-=======
   background: #d81159;
   color: white;
   padding: 0.45rem 0.9rem;
   border-radius: 999px;
   font-size: 0.85rem;
->>>>>>> b981eb30dd3830253c0ea1dfdfee97d77a645f6f
   font-weight: bold;
 }
 
@@ -522,11 +465,7 @@ footer {
   background: #fff;
   border: 1px solid #ddd;
   border-radius: 10px;
-<<<<<<< HEAD
-  box-shadow: 0 3px 10px rgba(0,0,0,.08);
-=======
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
->>>>>>> b981eb30dd3830253c0ea1dfdfee97d77a645f6f
 }
 
 .remove-item {
@@ -539,11 +478,7 @@ footer {
   justify-content: center;
   align-items: center;
   border-radius: 50%;
-<<<<<<< HEAD
-  background: #D81159;
-=======
   background: #d81159;
->>>>>>> b981eb30dd3830253c0ea1dfdfee97d77a645f6f
   color: white;
   font-size: 1rem;
   font-weight: bold;
@@ -591,16 +526,6 @@ footer {
 }
 
 .alert-list {
-<<<<<<< HEAD
-    width: 100%;
-}
-
-.alert-list p {
-    padding: 1rem;
-    margin: 0;
-    text-align: center;
-    font-family: 'Play', sans-serif;
-=======
   width: 100%;
 }
 
@@ -618,12 +543,6 @@ footer {
   padding: 1rem;
 }
 
-.categories h2 {
-  font-family: "Play", sans-serif;
-  font-size: 1.8rem;
-  margin-bottom: 1rem;
-}
-
 .category-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -635,7 +554,6 @@ footer {
   display: block;
   text-align: center;
   text-decoration: none;
-  padding: 1rem;
   color: inherit;
   border: 1px solid #ddd;
   border-radius: 8px;
@@ -656,6 +574,4 @@ footer {
 
 .category-card h3 {
   padding: 1rem;
-  font-family: "Play", sans-serif;
->>>>>>> b981eb30dd3830253c0ea1dfdfee97d77a645f6f
 }
