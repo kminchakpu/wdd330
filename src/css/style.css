@@ -554,6 +554,7 @@ footer {
   display: block;
   text-align: center;
   text-decoration: none;
+  padding: 1rem;
   color: inherit;
   border: 1px solid #ddd;
   border-radius: 8px;
