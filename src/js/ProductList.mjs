@@ -66,11 +66,8 @@ export default class ProductList {
     // Load products
     this.list = await this.dataSource.getData(this.category);
 
-    // Copy list for filtering
+    // Initial list
     this.filteredList = [...this.list];
-
-    // Breadcrumb
-    renderCategoryBreadcrumb(this.category, this.list.length);
 
     // Initial render
     this.renderList(this.filteredList);
@@ -80,9 +77,7 @@ export default class ProductList {
     this.initFilters();
   }
 
-  /* ===========================
-      SORTING
-  ============================ */
+  /* SORTING */
 
   initSorting() {
     const sortSelect = document.getElementById("sortProducts");
@@ -129,9 +124,7 @@ export default class ProductList {
     this.renderList(sorted);
   }
 
-  /* ===========================
-      FILTERING
-  ============================ */
+  /* FILTERING  */
 
   initFilters() {
     const saleFilter = document.getElementById("saleFilter");
@@ -148,14 +141,14 @@ export default class ProductList {
 
   applyFilters() {
     const saleOnly =
-      document.getElementById("saleFilter")?.checked;
+      document.getElementById("saleFilter")?.checked || false;
 
     const maxPrice =
-      document.getElementById("priceFilter")?.value;
+      document.getElementById("priceFilter")?.value || "";
 
     this.filteredList = [...this.list];
 
-    // Sale only
+    // On Sale filter
     if (saleOnly) {
       this.filteredList = this.filteredList.filter(
         (product) =>
@@ -164,7 +157,7 @@ export default class ProductList {
       );
     }
 
-    // Maximum price
+    // Price filter
     if (maxPrice !== "") {
       this.filteredList = this.filteredList.filter(
         (product) =>
@@ -172,14 +165,19 @@ export default class ProductList {
       );
     }
 
-    // Reapply current sort
-    const sort =
+    // Keep current sort
+    const currentSort =
       document.getElementById("sortProducts")?.value || "default";
 
-    this.sortProducts(sort);
+    this.sortProducts(currentSort);
   }
 
+  /* RENDER */
+
   renderList(list) {
+    // Update breadcrumb with the number of displayed products
+    renderCategoryBreadcrumb(this.category, list.length);
+
     renderListWithTemplate(
       productCardTemplate,
       this.listElement,

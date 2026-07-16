@@ -8,10 +8,14 @@ export function renderCategoryBreadcrumb(category, count) {
     .replace(/\b\w/g, (letter) => letter.toUpperCase());
 
   breadcrumb.innerHTML = `
+    <a href="/">Home</a>
+    <span> &gt; </span>
+
     <a href="/product_listing/index.html?category=${category}">
       ${formattedCategory}
     </a>
-    <span> → (${count} items)</span>
+
+    <span> &gt; (${count} items)</span>
   `;
 }
 
@@ -25,6 +29,9 @@ export function renderProductBreadcrumb(category) {
     .replace(/\b\w/g, (letter) => letter.toUpperCase());
 
   breadcrumb.innerHTML = `
+    <a href="/">Home</a>
+    <span> &gt; </span>
+
     <a href="/product_listing/index.html?category=${category}">
       ${formattedCategory}
     </a>
