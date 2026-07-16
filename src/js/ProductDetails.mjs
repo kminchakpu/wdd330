@@ -24,6 +24,7 @@ export default class ProductDetails {
       .addEventListener("click", this.addProductToCart.bind(this));
   }
 
+  // Add product to cart or increase quantity if it already exists
   addProductToCart() {
     const cartItems = getLocalStorage("so-cart") || [];
 
