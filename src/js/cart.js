@@ -9,7 +9,6 @@ import updateCartCount from "./cartCount.mjs";
 async function init() {
   await loadHeaderFooter();
   await initSearch();
-  await updateCartCount();
 
   renderCartContents();
 }
@@ -44,16 +43,17 @@ function renderCartContents() {
   // Render cart items
   productList.innerHTML = cartItems.map(cartItemTemplate).join("");
 
-  // Calculate total
+  // Calculate cart total using quantity
   const total = cartItems.reduce(
-    (sum, item) => sum + Number(item.FinalPrice),
-    0,
+    (sum, item) =>
+      sum + Number(item.FinalPrice) * (item.quantity || 1),
+    0
   );
 
   cartTotal.innerHTML = `Total: <strong>$${total.toFixed(2)}</strong>`;
   cartFooter.classList.remove("hide");
 
-  // Attach remove listeners
+  // Remove item listeners
   document.querySelectorAll(".remove-item").forEach((button) => {
     button.addEventListener("click", removeItemFromCart);
   });
@@ -62,13 +62,16 @@ function renderCartContents() {
 }
 
 function cartItemTemplate(item) {
+  const quantity = item.quantity || 1;
+  const lineTotal = Number(item.FinalPrice) * quantity;
+
   return `
     <li class="cart-card">
 
       <span
         class="remove-item"
         data-id="${item.Id}"
-        title="Remove item"
+        title="Remove one"
       >
         &times;
       </span>
@@ -90,11 +93,11 @@ function cartItemTemplate(item) {
       </p>
 
       <p class="cart-card__quantity">
-        qty: 1
+        Qty: ${quantity}
       </p>
 
       <p class="cart-card__price">
-        $${Number(item.FinalPrice).toFixed(2)}
+        $${lineTotal.toFixed(2)}
       </p>
 
     </li>
@@ -109,7 +112,11 @@ function removeItemFromCart(event) {
   const index = cartItems.findIndex((item) => item.Id === id);
 
   if (index !== -1) {
-    cartItems.splice(index, 1);
+    if ((cartItems[index].quantity || 1) > 1) {
+      cartItems[index].quantity--;
+    } else {
+      cartItems.splice(index, 1);
+    }
   }
 
   setLocalStorage("so-cart", cartItems);
