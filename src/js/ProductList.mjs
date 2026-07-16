@@ -1,6 +1,7 @@
 import { renderListWithTemplate } from "./utils.mjs";
 
 function productCardTemplate(product) {
+<<<<<<< HEAD
   let imagePath = product.Image;
 
   // Normalize image paths
@@ -15,6 +16,12 @@ function productCardTemplate(product) {
   }
 
   // Determine if the product is discounted
+=======
+  // Use the image returned by the API
+  const imagePath = product.Images?.PrimaryMedium || "";
+
+  // Check if the product is discounted
+>>>>>>> b981eb30dd3830253c0ea1dfdfee97d77a645f6f
   const isDiscounted =
     Number(product.FinalPrice) < Number(product.SuggestedRetailPrice);
 
@@ -38,7 +45,11 @@ function productCardTemplate(product) {
       <a href="/product_pages/index.html?product=${product.Id}">
         <img
           src="${imagePath}"
+<<<<<<< HEAD
           alt="Image of ${product.Name}"
+=======
+          alt="${product.Name}"
+>>>>>>> b981eb30dd3830253c0ea1dfdfee97d77a645f6f
           loading="lazy"
         >
 
@@ -56,9 +67,15 @@ function productCardTemplate(product) {
             : ""
         }
 
+<<<<<<< HEAD
         <p class="product-card__price">$${Number(product.FinalPrice).toFixed(
           2
         )}</p>
+=======
+        <p class="product-card__price">
+          $${Number(product.FinalPrice).toFixed(2)}
+        </p>
+>>>>>>> b981eb30dd3830253c0ea1dfdfee97d77a645f6f
       </a>
     </li>
   `;
@@ -72,7 +89,11 @@ export default class ProductList {
   }
 
   async init() {
+<<<<<<< HEAD
     const list = await this.dataSource.getData();
+=======
+    const list = await this.dataSource.getData(this.category);
+>>>>>>> b981eb30dd3830253c0ea1dfdfee97d77a645f6f
     this.renderList(list);
   }
 

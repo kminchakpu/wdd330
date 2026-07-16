@@ -6,6 +6,7 @@ function convertToJson(res) {
   }
 }
 
+<<<<<<< HEAD
 export default class ProductData {
   constructor(category) {
     this.category = category;
@@ -19,5 +20,28 @@ export default class ProductData {
   async findProductById(id) {
     const products = await this.getData();
     return products.find((item) => item.Id === id);
+=======
+const baseURL = import.meta.env.VITE_SERVER_URL;
+
+export default class ProductData {
+  async getData(category) {
+    const response = await fetch(
+      `${baseURL}products/search/${category}`
+    );
+
+    const data = await convertToJson(response);
+
+    return data.Result;
+  }
+
+  async findProductById(id) {
+    const response = await fetch(
+      `${baseURL}product/${id}`
+    );
+
+    const data = await convertToJson(response);
+
+    return data.Result;
+>>>>>>> b981eb30dd3830253c0ea1dfdfee97d77a645f6f
   }
 }

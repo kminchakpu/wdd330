@@ -5,6 +5,7 @@
     <meta charset="UTF-8" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<<<<<<< HEAD
 
     <title>Sleep Outside | Checkout</title>
 
@@ -64,5 +65,93 @@
     </main>
 
     <footer>&copy;NOT a real business</footer>
+=======
+    <title>Sleep Outside | Checkout</title>
+    <link rel="stylesheet" href="../css/style.css" />
+    <script type="module" src="../js/checkout.js"></script>
+  </head>
+
+  <body>
+    <header class="divider" id="main-header"></header>
+
+    <main class="divider checkout-page">
+
+  <h2>Review & Place Your Order</h2>
+
+  <section class="checkout-container">
+
+    <form id="checkoutForm" class="checkout-form">
+
+      <fieldset>
+        <legend>Customer Information</legend>
+
+        <label>
+          First Name
+          <input type="text" name="fname" required>
+        </label>
+
+        <label>
+          Last Name
+          <input type="text" name="lname" required>
+        </label>
+
+        <label>
+          Email
+          <input type="email" name="email" required>
+        </label>
+
+        <label>
+          Phone
+          <input type="tel" name="phone" required>
+        </label>
+      </fieldset>
+
+      <fieldset>
+        <legend>Shipping Address</legend>
+
+        <label>
+          Street Address
+          <input type="text" name="street" required>
+        </label>
+
+        <label>
+          City
+          <input type="text" name="city" required>
+        </label>
+
+        <label>
+          State
+          <input type="text" name="state" required>
+        </label>
+
+        <label>
+          Zip Code
+          <input type="text" name="zip" required>
+        </label>
+      </fieldset>
+
+      <button type="submit">
+        Place Order
+      </button>
+
+    </form>
+
+    <section class="order-summary">
+      <h3>Order Summary</h3>
+
+      <p>Subtotal: <span id="subtotal">$0.00</span></p>
+      <p>Shipping: <span id="shipping">$0.00</span></p>
+      <p>Tax: <span id="tax">$0.00</span></p>
+
+      <hr>
+
+      <p><strong>Total: <span id="orderTotal">$0.00</span></strong></p>
+    </section>
+
+  </section>
+
+</main>
+    <footer id="main-footer"></footer>
+>>>>>>> b981eb30dd3830253c0ea1dfdfee97d77a645f6f
   </body>
 </html>
