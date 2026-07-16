@@ -1,19 +1,8 @@
-<<<<<<< HEAD
-import { getParam } from "./utils.mjs";
-=======
 import { loadHeaderFooter, getParam } from "./utils.mjs";
->>>>>>> b981eb30dd3830253c0ea1dfdfee97d77a645f6f
 import ProductData from "./ProductData.mjs";
 import ProductDetails from "./ProductDetails.mjs";
 import updateCartCount from "./cartCount.mjs";
 
-<<<<<<< HEAD
-
-const dataSource = new ProductData("tents");
-const productID = getParam("product");
-
-const product = new ProductDetails(productID, dataSource);
-=======
 loadHeaderFooter();
 
 const productID = getParam("product");
@@ -21,8 +10,8 @@ const dataSource = new ProductData();
 
 const product = new ProductDetails(productID, dataSource);
 
->>>>>>> b981eb30dd3830253c0ea1dfdfee97d77a645f6f
 product.init();
+
 updateCartCount();
 
 // // add to cart button event handler

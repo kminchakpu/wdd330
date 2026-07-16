@@ -12,10 +12,7 @@ export default defineConfig({
         cart: resolve(__dirname, "src/cart/index.html"),
         checkout: resolve(__dirname, "src/checkout/index.html"),
         product: resolve(__dirname, "src/product_pages/index.html"),
-<<<<<<< HEAD
-=======
         productListing: resolve(__dirname, "src/product_listing/index.html"),
->>>>>>> b981eb30dd3830253c0ea1dfdfee97d77a645f6f
       },
     },
   },
