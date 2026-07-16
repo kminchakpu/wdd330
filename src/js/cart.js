@@ -3,8 +3,12 @@ import {
   getLocalStorage,
   setLocalStorage,
 } from "./utils.mjs";
+import initSearch from "./search.js";
 import updateCartCount from "./cartCount.mjs";
 
+await loadHeaderFooter();
+await initSearch();
+await updateCartCount();
 function renderCartContents() {
   const cartItems = getLocalStorage("so-cart") || [];
 

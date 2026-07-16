@@ -1,5 +1,6 @@
 import { getLocalStorage, setLocalStorage } from "./utils.mjs";
 import updateCartCount from "./cartCount.mjs";
+import { renderProductBreadcrumb } from "./breadcrumb.js";
 
 export default class ProductDetails {
   constructor(productId, dataSource) {
@@ -11,8 +12,13 @@ export default class ProductDetails {
   async init() {
     this.product = await this.dataSource.findProductById(this.productId);
 
+    // Render breadcrumb
+    renderProductBreadcrumb(this.product.Category);
+
+    // Render product
     this.renderProductDetails();
 
+    // Add to Cart
     document
       .getElementById("addToCart")
       .addEventListener("click", this.addProductToCart.bind(this));
@@ -20,8 +26,11 @@ export default class ProductDetails {
 
   addProductToCart() {
     const cartItems = getLocalStorage("so-cart") || [];
+
     cartItems.push(this.product);
+
     setLocalStorage("so-cart", cartItems);
+
     updateCartCount();
   }
 
@@ -37,7 +46,7 @@ function productDetailsTemplate(product) {
   // Product Name
   document.querySelector("h3").textContent = product.NameWithoutBrand;
 
-  // Product Image (API)
+  // Product Image
   const productImage = document.getElementById("productImage");
   productImage.src = product.Images.PrimaryLarge;
   productImage.alt = product.Name;
