@@ -89,9 +89,7 @@ function cartItemTemplate(item) {
         ${item.Colors?.[0]?.ColorName || "N/A"}
       </p>
 
-      <p class="cart-card__quantity">
-        qty: 1
-      </p>
+      <p class="cart-card__quantity"></p>
 
       <p class="cart-card__price">
         $${Number(item.FinalPrice).toFixed(2)}
