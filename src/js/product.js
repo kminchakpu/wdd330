@@ -4,17 +4,21 @@ import ProductData from "./ProductData.mjs";
 import ProductDetails from "./ProductDetails.mjs";
 import updateCartCount from "./cartCount.mjs";
 
-await loadHeaderFooter();
-await initSearch();
+async function init() {
+  await loadHeaderFooter();
+  await initSearch();
 
-const productID = getParam("product");
-const dataSource = new ProductData();
+  const productID = getParam("product");
+  const dataSource = new ProductData();
 
-const product = new ProductDetails(productID, dataSource);
+  const product = new ProductDetails(productID, dataSource);
 
-product.init();
+  product.init();
 
-await updateCartCount();
+  await updateCartCount();
+}
+
+init();
 
 // // add to cart button event handler
 // async function addToCartHandler(e) {

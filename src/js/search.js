@@ -6,14 +6,10 @@ export default function initSearch() {
   form.addEventListener("submit", (e) => {
     e.preventDefault();
 
-    const value = document
-      .getElementById("searchInput")
-      .value
-      .trim();
+    const value = document.getElementById("searchInput").value.trim();
 
     if (!value) return;
 
-    window.location =
-      `/product_listing/index.html?search=${encodeURIComponent(value)}`;
+    window.location = `/product_listing/index.html?search=${encodeURIComponent(value)}`;
   });
 }
