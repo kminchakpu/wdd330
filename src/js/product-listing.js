@@ -3,24 +3,39 @@ import ProductData from "./ProductData.mjs";
 import ProductList from "./ProductList.mjs";
 import updateCartCount from "./cartCount.mjs";
 
-loadHeaderFooter();
+async function init() {
+  await loadHeaderFooter();
 
-const category = getParam("category") || "tents";
-// Update page heading
-const title = document.getElementById("categoryTitle");
-const formattedCategory = category
-  .replace("-", " ")
-  .replace(/\b\w/g, (letter) => letter.toUpperCase());
+  const dataSource = new ProductData();
+  const listElement = document.querySelector(".product-list");
+  const title = document.getElementById("categoryTitle");
 
-title.textContent = `Top Products: ${formattedCategory}`;
+  // Get URL parameters
+  const category = getParam("category");
+  const search = getParam("search");
 
-const dataSource = new ProductData();
-const listElement = document.querySelector(".product-list");
-const productList = new ProductList(
-  category,
-  dataSource,
-  listElement
-);
+  // Decide what to search for
+  const searchTerm = search || category || "tents";
 
-productList.init();
-updateCartCount();
+  // Create the product list
+  const productList = new ProductList(searchTerm, dataSource, listElement);
+
+  // Update the page title
+  if (search) {
+    title.textContent = `Search Results: ${search}`;
+  } else {
+    const formattedCategory = searchTerm
+      .replace(/-/g, " ")
+      .replace(/\b\w/g, (letter) => letter.toUpperCase());
+
+    title.textContent = `Top Products: ${formattedCategory}`;
+  }
+
+  // Load products
+  productList.init();
+
+  // Update cart count
+  updateCartCount();
+}
+
+init();

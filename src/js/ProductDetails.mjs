@@ -1,5 +1,6 @@
 import { getLocalStorage, setLocalStorage } from "./utils.mjs";
 import updateCartCount from "./cartCount.mjs";
+import { renderProductBreadcrumb } from "./breadcrumb.js";
 
 export default class ProductDetails {
   constructor(productId, dataSource) {
@@ -11,26 +12,39 @@ export default class ProductDetails {
   async init() {
     this.product = await this.dataSource.findProductById(this.productId);
 
+    // Render breadcrumb
+    renderProductBreadcrumb(this.product.Category);
+
+    // Render product
     this.renderProductDetails();
 
+    // Add to Cart
     document
       .getElementById("addToCart")
       .addEventListener("click", this.addProductToCart.bind(this));
   }
 
-  //Check if the item is in the cart before adding. if the item exists, it updates the quantity.
+  // Add product to cart or increase quantity if it already exists
   addProductToCart() {
     const cartItems = getLocalStorage("so-cart") || [];
-    const found = cartItems.find(item => item.Id === this.product.Id);
 
-    if (!found) {
-      this.product.quantity = 1;
-      cartItems.push(this.product);
+    const existingItem = cartItems.find(
+      (item) => item.Id === this.product.Id
+    );
+
+    if (existingItem) {
+      existingItem.quantity = (existingItem.quantity || 1) + 1;
     } else {
-      changeQnty(found);
+      const productToAdd = {
+        ...this.product,
+        quantity: 1,
+      };
+
+      cartItems.push(productToAdd);
     }
-    document.querySelector(".cart-card__quantity").innerHTML = `qty: ${quantity}`;
+
     setLocalStorage("so-cart", cartItems);
+
     updateCartCount();
   }
 
@@ -46,7 +60,7 @@ function productDetailsTemplate(product) {
   // Product Name
   document.querySelector("h3").textContent = product.NameWithoutBrand;
 
-  // Product Image (API)
+  // Product Image
   const productImage = document.getElementById("productImage");
   productImage.src = product.Images.PrimaryLarge;
   productImage.alt = product.Name;
@@ -57,10 +71,10 @@ function productDetailsTemplate(product) {
 
   const discountPercent = isDiscounted
     ? Math.round(
-      ((Number(product.SuggestedRetailPrice) - Number(product.FinalPrice)) /
-        Number(product.SuggestedRetailPrice)) *
-      100
-    )
+        ((Number(product.SuggestedRetailPrice) - Number(product.FinalPrice)) /
+          Number(product.SuggestedRetailPrice)) *
+          100
+      )
     : 0;
 
   // Discount Badge
@@ -100,14 +114,4 @@ function productDetailsTemplate(product) {
 
   // Add to Cart Button
   document.getElementById("addToCart").dataset.id = product.Id;
-
-}
-
-//Change the quantity of product in the cart
-function changeQnty(product) {
-  if (!product.quantity) {
-    product.quantity = 1;
-  } else {
-    product.quantity++;
-  }
 }

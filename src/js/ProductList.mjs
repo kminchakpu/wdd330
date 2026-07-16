@@ -1,14 +1,12 @@
 import { renderListWithTemplate } from "./utils.mjs";
+import { renderCategoryBreadcrumb } from "./breadcrumb.js";
 
 function productCardTemplate(product) {
-  // Use the image returned by the API
   const imagePath = product.Images?.PrimaryMedium || "";
 
-  // Check if the product is discounted
   const isDiscounted =
     Number(product.FinalPrice) < Number(product.SuggestedRetailPrice);
 
-  // Calculate the discount percentage
   const discountPercent = isDiscounted
     ? Math.round(
         ((Number(product.SuggestedRetailPrice) - Number(product.FinalPrice)) /
@@ -39,10 +37,10 @@ function productCardTemplate(product) {
         ${
           isDiscounted
             ? `
-              <p class="product-card__retail-price">
-                <s>$${Number(product.SuggestedRetailPrice).toFixed(2)}</s>
-              </p>
-            `
+            <p class="product-card__retail-price">
+              <s>$${Number(product.SuggestedRetailPrice).toFixed(2)}</s>
+            </p>
+          `
             : ""
         }
 
@@ -59,11 +57,126 @@ export default class ProductList {
     this.category = category;
     this.dataSource = dataSource;
     this.listElement = listElement;
+
+    this.list = [];
+    this.filteredList = [];
   }
 
   async init() {
-    const list = await this.dataSource.getData(this.category);
-    this.renderList(list);
+    // Load products
+    this.list = await this.dataSource.getData(this.category);
+
+    // Copy list for filtering
+    this.filteredList = [...this.list];
+
+    // Breadcrumb
+    renderCategoryBreadcrumb(this.category, this.list.length);
+
+    // Initial render
+    this.renderList(this.filteredList);
+
+    // Enable features
+    this.initSorting();
+    this.initFilters();
+  }
+
+  /* ===========================
+      SORTING
+  ============================ */
+
+  initSorting() {
+    const sortSelect = document.getElementById("sortProducts");
+
+    if (!sortSelect) return;
+
+    sortSelect.addEventListener("change", (e) => {
+      this.sortProducts(e.target.value);
+    });
+  }
+
+  sortProducts(sortBy) {
+    let sorted = [...this.filteredList];
+
+    switch (sortBy) {
+      case "name-asc":
+        sorted.sort((a, b) =>
+          a.NameWithoutBrand.localeCompare(b.NameWithoutBrand)
+        );
+        break;
+
+      case "name-desc":
+        sorted.sort((a, b) =>
+          b.NameWithoutBrand.localeCompare(a.NameWithoutBrand)
+        );
+        break;
+
+      case "price-asc":
+        sorted.sort(
+          (a, b) => Number(a.FinalPrice) - Number(b.FinalPrice)
+        );
+        break;
+
+      case "price-desc":
+        sorted.sort(
+          (a, b) => Number(b.FinalPrice) - Number(a.FinalPrice)
+        );
+        break;
+
+      default:
+        sorted = [...this.filteredList];
+    }
+
+    this.renderList(sorted);
+  }
+
+  /* ===========================
+      FILTERING
+  ============================ */
+
+  initFilters() {
+    const saleFilter = document.getElementById("saleFilter");
+    const priceFilter = document.getElementById("priceFilter");
+
+    if (saleFilter) {
+      saleFilter.addEventListener("change", () => this.applyFilters());
+    }
+
+    if (priceFilter) {
+      priceFilter.addEventListener("change", () => this.applyFilters());
+    }
+  }
+
+  applyFilters() {
+    const saleOnly =
+      document.getElementById("saleFilter")?.checked;
+
+    const maxPrice =
+      document.getElementById("priceFilter")?.value;
+
+    this.filteredList = [...this.list];
+
+    // Sale only
+    if (saleOnly) {
+      this.filteredList = this.filteredList.filter(
+        (product) =>
+          Number(product.FinalPrice) <
+          Number(product.SuggestedRetailPrice)
+      );
+    }
+
+    // Maximum price
+    if (maxPrice !== "") {
+      this.filteredList = this.filteredList.filter(
+        (product) =>
+          Number(product.FinalPrice) <= Number(maxPrice)
+      );
+    }
+
+    // Reapply current sort
+    const sort =
+      document.getElementById("sortProducts")?.value || "default";
+
+    this.sortProducts(sort);
   }
 
   renderList(list) {

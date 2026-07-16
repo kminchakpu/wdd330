@@ -29,3 +29,4 @@ export default class ProductData {
     return data.Result;
   }
 }
+

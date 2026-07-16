@@ -16,6 +16,37 @@
 
   <body>
     <header class="divider" id="main-header"></header>
+    <div id="breadcrumb"></div>
+
+    <div class="filters">
+      <label>
+        <input type="checkbox" id="saleFilter" />
+        On Sale Only
+      </label>
+
+      <label for="priceFilter">Maximum Price</label>
+
+      <select id="priceFilter">
+        <option value="">All Prices</option>
+        <option value="50">Under $50</option>
+        <option value="100">Under $100</option>
+        <option value="150">Under $150</option>
+        <option value="200">Under $200</option>
+        <option value="300">Under $300</option>
+      </select>
+    </div>
+
+    <div class="product-controls">
+      <label for="sortProducts">Sort By:</label>
+
+      <select id="sortProducts">
+        <option value="default">Default</option>
+        <option value="name-asc">Name (A-Z)</option>
+        <option value="name-desc">Name (Z-A)</option>
+        <option value="price-asc">Price (Low to High)</option>
+        <option value="price-desc">Price (High to Low)</option>
+      </select>
+    </div>
     <main class="divider">
       <section class="products">
         <h2 id="categoryTitle">Top Products</h2>
