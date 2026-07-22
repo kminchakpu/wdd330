@@ -29,7 +29,7 @@ function renderCartContents() {
         <img src="/images/cart.png" alt="Empty Cart" class="empty-cart-logo">
         <h2>Your Cart is Empty</h2>
         <p>It looks like you haven't added any gear yet.</p>
-        <a href="/product_listing/index.html" class="continue-shopping">
+        <a href="index.html" class="continue-shopping">
           Start Shopping
         </a>
       </li>
