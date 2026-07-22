@@ -1,32 +1,41 @@
 import { loadHeaderFooter, getParam } from "./utils.mjs";
 import initSearch from "./search.js";
-import ProductData from "./ProductData.mjs";
+import ExternalServices from "./ExternalServices.mjs";
 import ProductDetails from "./ProductDetails.mjs";
 import updateCartCount from "./cartCount.mjs";
 
 async function init() {
-  await loadHeaderFooter();
-  await initSearch();
+  try {
+    // Load shared page components
+    await loadHeaderFooter();
 
-  const productID = getParam("product");
-  const dataSource = new ProductData();
+    // Initialize search bar
+    await initSearch();
 
-  const product = new ProductDetails(productID, dataSource);
+    // Get product id from URL
+    const productID = getParam("product");
 
-  product.init();
+    // Create data source
+    const dataSource = new ExternalServices();
 
-  await updateCartCount();
+    // Create ProductDetails instance
+    const product = new ProductDetails(productID, dataSource);
+
+    // Load product
+    await product.init();
+
+    // Update cart badge
+    updateCartCount();
+  } catch (err) {
+    console.error(err);
+
+    document.querySelector("main").innerHTML = `
+      <section class="error-message">
+        <h2>Unable to load product.</h2>
+        <p>Please try again later.</p>
+      </section>
+    `;
+  }
 }
 
 init();
-
-// // add to cart button event handler
-// async function addToCartHandler(e) {
-//   const product = await dataSource.findProductById(e.target.dataset.id);
-//   addProductToCart(product);
-// }
-
-// // add listener to Add to Cart button
-// document
-//   .getElementById("addToCart")
-//   .addEventListener("click", addToCartHandler);

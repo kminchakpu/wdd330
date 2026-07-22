@@ -86,3 +86,18 @@ export async function loadHeaderFooter() {
 
     renderWithTemplate(footerTemplate, footerElement);
 }
+
+/**
+ * Convert FormData into a plain JavaScript object.
+ * Used by the CheckoutProcess class.
+ */
+export function formDataToJSON(formElement) {
+  const formData = new FormData(formElement);
+  const json = {};
+
+  formData.forEach((value, key) => {
+    json[key] = value;
+  });
+
+  return json;
+}
