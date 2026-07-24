@@ -7,6 +7,16 @@ import {
 import updateCartCount from "./cartCount.mjs";
 import ExternalServices from "./ExternalServices.mjs";
 
+import {
+  validateRequired,
+  validateEmail,
+  validatePhone,
+  validateCard,
+  validateExpiration,
+  validateCVV,
+  validateZip,
+} from "./validation.js";
+
 export default class CheckoutProcess {
   constructor(cartKey) {
     this.cartKey = cartKey;
@@ -15,30 +25,105 @@ export default class CheckoutProcess {
   }
 
   /**
-   * Initialize the checkout page
+   * Initialize checkout page
    */
   init() {
     this.cartItems = getLocalStorage(this.cartKey) || [];
 
     this.calculateOrderTotals();
 
+    this.enableLiveValidation();
+
     const form = document.getElementById("checkoutForm");
 
     if (form) {
       form.addEventListener("submit", (e) => {
         e.preventDefault();
-        this.checkout(form);
+
+        if (this.validateForm()) {
+          this.checkout(form);
+        }
       });
     }
+  }
+
+  /**
+   * Live validation
+   */
+  enableLiveValidation() {
+    document
+      .getElementById("fname")
+      .addEventListener("blur", (e) => validateRequired(e.target));
+
+    document
+      .getElementById("lname")
+      .addEventListener("blur", (e) => validateRequired(e.target));
+
+    document
+      .getElementById("street")
+      .addEventListener("blur", (e) => validateRequired(e.target));
+
+    document
+      .getElementById("city")
+      .addEventListener("blur", (e) => validateRequired(e.target));
+
+    document
+      .getElementById("state")
+      .addEventListener("blur", (e) => validateRequired(e.target));
+
+    document
+      .getElementById("email")
+      .addEventListener("blur", (e) => validateEmail(e.target));
+
+    document
+      .getElementById("phone")
+      .addEventListener("blur", (e) => validatePhone(e.target));
+
+    document
+      .getElementById("zip")
+      .addEventListener("blur", (e) => validateZip(e.target));
+
+    document
+      .getElementById("cardNumber")
+      .addEventListener("blur", (e) => validateCard(e.target));
+
+    document
+      .getElementById("expiration")
+      .addEventListener("blur", (e) => validateExpiration(e.target));
+
+    document
+      .getElementById("code")
+      .addEventListener("blur", (e) => validateCVV(e.target));
+  }
+
+  /**
+   * Validate entire form
+   */
+  validateForm() {
+    return (
+      validateRequired(document.getElementById("fname")) &&
+      validateRequired(document.getElementById("lname")) &&
+      validateRequired(document.getElementById("street")) &&
+      validateRequired(document.getElementById("city")) &&
+      validateRequired(document.getElementById("state")) &&
+      validateEmail(document.getElementById("email")) &&
+      validatePhone(document.getElementById("phone")) &&
+      validateZip(document.getElementById("zip")) &&
+      validateCard(document.getElementById("cardNumber")) &&
+      validateExpiration(document.getElementById("expiration")) &&
+      validateCVV(document.getElementById("code"))
+    );
   }
 
   /**
    * Calculate subtotal
    */
   calculateSubtotal() {
-    return this.cartItems.reduce((sum, item) => {
-      return sum + Number(item.FinalPrice) * (item.quantity || 1);
-    }, 0);
+    return this.cartItems.reduce(
+      (sum, item) =>
+        sum + Number(item.FinalPrice) * (item.quantity || 1),
+      0
+    );
   }
 
   /**
@@ -51,23 +136,19 @@ export default class CheckoutProcess {
   }
 
   /**
-   * Calculate tax (6%)
+   * Calculate tax
    */
   calculateTax(subtotal) {
     return subtotal * 0.06;
   }
 
   /**
-   * Display totals on the page
+   * Display totals
    */
   calculateOrderTotals() {
     const subtotal = this.calculateSubtotal();
     const shipping = this.calculateShipping();
-
-    // Round tax to 2 decimal places
     const tax = Number(this.calculateTax(subtotal).toFixed(2));
-
-    // Round total to 2 decimal places
     const total = Number((subtotal + shipping + tax).toFixed(2));
 
     document.getElementById("itemCount").textContent =
@@ -87,7 +168,7 @@ export default class CheckoutProcess {
   }
 
   /**
-   * Package items for the checkout API
+   * Package cart items
    */
   packageItems() {
     return this.cartItems.map((item) => ({
@@ -97,56 +178,94 @@ export default class CheckoutProcess {
   }
 
   /**
-   * Submit the order
+   * Submit checkout
    */
-  async checkout(formElement) {
-    try {
-      // Convert form into an object
-      const order = formDataToJSON(formElement);
+  async checkout(form) {
+    const button = document.getElementById("checkoutButton");
+    const messages = document.getElementById("formMessages");
 
-      // Calculate totals
+    // Clear previous messages
+    messages.innerHTML = "";
+
+    button.disabled = true;
+    button.textContent = "Processing...";
+
+    try {
       const subtotal = this.calculateSubtotal();
       const shipping = this.calculateShipping();
-
-      // Round values before sending to the API
       const tax = Number(this.calculateTax(subtotal).toFixed(2));
-      const orderTotal = Number(
-        (subtotal + shipping + tax).toFixed(2)
-      );
+      const total = Number((subtotal + shipping + tax).toFixed(2));
 
-      // Build the order object
+      const order = formDataToJSON(form);
+
       order.orderDate = new Date().toISOString();
       order.items = this.packageItems();
       order.shipping = shipping;
       order.tax = tax;
-      order.orderTotal = orderTotal;
+      order.orderTotal = total;
 
-      // Debug output
-      console.log("========== ORDER ==========");
-      console.log(order);
-      console.log(JSON.stringify(order, null, 2));
-
-      // Submit to API
       const result = await this.services.checkout(order);
 
-      console.log("Checkout Success:");
-      console.log(result);
+      messages.innerHTML = `
+        <div class="message success">
+          <strong>🎉 Order submitted successfully!</strong><br>
+          Order ID: ${result.orderId}<br>
+          Redirecting to the home page...
+        </div>
+      `;
 
-      alert("🎉 Order submitted successfully!");
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
 
       // Empty cart
       setLocalStorage(this.cartKey, []);
 
-      // Update cart badge
+      // Update badge
       updateCartCount();
 
-      // Redirect home
-      window.location.href = "/";
-    } catch (err) {
-      console.error("Checkout Error:");
-      console.error(err);
+      // Reset form
+      form.reset();
 
-      alert("Unable to complete checkout. Please try again.");
+      // Wait before redirecting
+      setTimeout(() => {
+        window.location.href = "/";
+      }, 6000);
+
+    } catch (err) {
+
+      let message = "Unable to submit order.";
+
+      try {
+        const apiErrors = JSON.parse(err.message);
+
+        message = Object.values(apiErrors).join("<br>");
+
+      } catch {
+
+        message =
+          "Network error. Please check your connection.";
+
+      }
+
+      messages.innerHTML = `
+        <div class="message error">
+          <strong>Checkout Failed</strong><br>
+          ${message}
+        </div>
+      `;
+
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+
+    } finally {
+
+      button.disabled = false;
+      button.textContent = "Place Order";
+
     }
   }
 }
