@@ -22,15 +22,29 @@ export default class CheckoutProcess {
 
     this.calculateOrderTotals();
 
+
+    //Validate the form before it is submitted
     const form = document.getElementById("checkoutForm");
 
     if (form) {
-      form.addEventListener("submit", (e) => {
+      document.querySelector("#checkoutSubmit").addEventListener('click', (e) => {
         e.preventDefault();
-        this.checkout(form);
+        const validForm = form.checkValidity();
+        
+        if (validForm) {
+          checkout(validForm);
+        }
+        form.reportValidity();
+
+        //Clear the local storage if the form is successull submitted 
+        if (e.ok) {
+          localStorage.clear();
+        }
       });
     }
   }
+
+
 
   /**
    * Calculate subtotal
@@ -150,3 +164,6 @@ export default class CheckoutProcess {
     }
   }
 }
+
+
+
