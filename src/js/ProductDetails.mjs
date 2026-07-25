@@ -2,6 +2,7 @@ import { getLocalStorage, setLocalStorage } from "./utils.mjs";
 import animateCart from "./cartAnimation.mjs";
 import updateCartCount from "./cartCount.mjs";
 import { renderProductBreadcrumb } from "./breadcrumb.js";
+import ProductComments from "./ProductComments.mjs";
 
 export default class ProductDetails {
   constructor(productId, dataSource) {
@@ -14,27 +15,43 @@ export default class ProductDetails {
   }
 
   async init() {
-    this.product = await this.dataSource.findProductById(this.productId);
+    // Load product
+    this.product = await this.dataSource.findProductById(
+      this.productId
+    );
 
+    // Breadcrumb
     renderProductBreadcrumb(this.product.Category);
 
+    // Render product details
     this.renderProductDetails();
 
+    // ===========================
+    // Initialize Product Comments
+    // ===========================
+    const comments = new ProductComments(this.product.Id);
+    comments.init();
+
+    // Add To Cart
     document
       .getElementById("addToCart")
-      .addEventListener("click", this.addProductToCart.bind(this));
+      .addEventListener(
+        "click",
+        this.addProductToCart.bind(this)
+      );
   }
 
   addProductToCart() {
     const cartItems = getLocalStorage("so-cart") || [];
 
-    // Create a copy so we don't modify the original product object
+    // Copy product so original object isn't modified
     const productToAdd = {
       ...this.product,
       quantity: 1,
-      selectedColor: this.selectedColor
+      selectedColor: this.selectedColor,
     };
 
+    // Same product + same color?
     const existingItem = cartItems.find(
       (item) =>
         item.Id === productToAdd.Id &&
@@ -62,16 +79,24 @@ export default class ProductDetails {
 }
 
 function productDetailsTemplate(product, instance) {
-
+  // ==========================
   // Brand
+  // ==========================
+
   document.querySelector("h2").textContent =
     product.Brand.Name;
 
-  // Name
+  // ==========================
+  // Product Name
+  // ==========================
+
   document.querySelector("h3").textContent =
     product.NameWithoutBrand;
 
-  // Main image
+  // ==========================
+  // Main Product Image
+  // ==========================
+
   const productImage =
     document.getElementById("productImage");
 
@@ -81,7 +106,10 @@ function productDetailsTemplate(product, instance) {
   productImage.alt =
     product.Name;
 
+  // ==========================
   // Discount
+  // ==========================
+
   const isDiscounted =
     Number(product.FinalPrice) <
     Number(product.SuggestedRetailPrice);
@@ -90,57 +118,59 @@ function productDetailsTemplate(product, instance) {
     document.getElementById("discountBadge");
 
   if (isDiscounted) {
-
     const percent = Math.round(
-      ((Number(product.SuggestedRetailPrice) -
-        Number(product.FinalPrice)) /
-        Number(product.SuggestedRetailPrice)) *
-        100
+      (
+        (Number(product.SuggestedRetailPrice) -
+          Number(product.FinalPrice)) /
+        Number(product.SuggestedRetailPrice)
+      ) * 100
     );
 
     badge.textContent = `${percent}% OFF`;
 
     badge.style.display = "inline-block";
-
   } else {
-
     badge.style.display = "none";
-
   }
 
-  // Retail price
+  // ==========================
+  // Original Price
+  // ==========================
+
   const retail =
     document.getElementById("retailPrice");
 
   if (isDiscounted) {
-
     retail.innerHTML = `<s>$${Number(
       product.SuggestedRetailPrice
     ).toFixed(2)}</s>`;
 
     retail.style.display = "block";
-
   } else {
-
     retail.style.display = "none";
-
   }
 
-  // Final price
+  // ==========================
+  // Final Price
+  // ==========================
+
   document.getElementById(
     "productPrice"
   ).textContent =
     `$${Number(product.FinalPrice).toFixed(2)}`;
 
+  // ==========================
   // Description
+  // ==========================
+
   document.getElementById(
     "productDesc"
   ).innerHTML =
     product.DescriptionHtmlSimple;
 
-  // -----------------------------
-  // COLORS
-  // -----------------------------
+  // ==========================
+  // Product Colors
+  // ==========================
 
   const colorContainer =
     document.getElementById("colorSwatches");
@@ -151,8 +181,8 @@ function productDetailsTemplate(product, instance) {
     product.Colors &&
     product.Colors.length > 0
   ) {
+    // Default selected color
 
-    // Default selection
     instance.selectedColor =
       product.Colors[0];
 
@@ -162,7 +192,6 @@ function productDetailsTemplate(product, instance) {
       instance.selectedColor.ColorName;
 
     product.Colors.forEach((color, index) => {
-
       const img =
         document.createElement("img");
 
@@ -182,7 +211,6 @@ function productDetailsTemplate(product, instance) {
       }
 
       img.addEventListener("click", () => {
-
         document
           .querySelectorAll(".color-swatch")
           .forEach((chip) =>
@@ -202,22 +230,20 @@ function productDetailsTemplate(product, instance) {
           productImage.src =
             color.ColorPreviewImageSrc;
         }
-
       });
 
       colorContainer.appendChild(img);
-
     });
-
   } else {
-
     document.getElementById(
       "productColor"
     ).textContent = "N/A";
-
   }
 
-  // Add to Cart
+  // ==========================
+  // Add To Cart Button
+  // ==========================
+
   document.getElementById("addToCart").dataset.id =
     product.Id;
 }

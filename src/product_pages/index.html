@@ -98,9 +98,79 @@
           >
             Add to Cart
           </button>
-
         </div>
 
+        <!-- CUSTOMER COMMENTS-->
+
+          <section class="product-comments">
+
+            <h3>
+              Customer Reviews
+              (<span id="commentCount">0</span>)
+            </h3>
+
+            <!-- Comment Form -->
+
+            <form
+              id="commentForm"
+              class="comment-form"
+              novalidate
+            >
+
+              <label for="commentName">
+                Your Name
+              </label>
+
+              <input
+                id="commentName"
+                type="text"
+                required
+                maxlength="40"
+                placeholder="John Smith"
+              >
+
+              <label for="commentRating">
+                Rating
+              </label>
+
+              <select
+                id="commentRating"
+                required
+              >
+                <option value="">Choose Rating</option>
+                <option value="5">★★★★★ Excellent</option>
+                <option value="4">★★★★☆ Very Good</option>
+                <option value="3">★★★☆☆ Good</option>
+                <option value="2">★★☆☆☆ Fair</option>
+                <option value="1">★☆☆☆☆ Poor</option>
+              </select>
+
+              <label for="commentText">
+                Comment
+              </label>
+
+              <textarea
+                id="commentText"
+                rows="5"
+                maxlength="500"
+                placeholder="Share your experience with this product..."
+                required
+              ></textarea>
+
+              <button
+                type="submit"
+                id="commentButton"
+              >
+                Post Review
+              </button>
+
+            </form>
+            <!-- Success / Error Messages -->
+            <div id="commentMessage"></div>
+            <!-- Display Comments -->
+            <div id="commentsList"></div>
+
+          </section>
       </section>
 
     </main>
