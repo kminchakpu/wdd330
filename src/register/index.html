@@ -1,271 +1,210 @@
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
 
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>Sleep Outside | Register</title>
+    <title>Sleep Outside | Register</title>
 
-  <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/style.css" />
 
-  <link
-    href="https://fonts.googleapis.com/css2?family=Play:wght@400;700&family=Roboto:wght@100;300;400;500;700&display=swap"
-    rel="stylesheet"
-  >
+    <link
+      href="https://fonts.googleapis.com/css2?family=Play:wght@400;700&family=Roboto:wght@100;300;400;500;700&display=swap"
+      rel="stylesheet"
+    />
 
-  <script
-    type="module"
-    src="../js/register.js"
-  ></script>
+    <script type="module" src="../js/register.js"></script>
+  </head>
 
-</head>
+  <body>
+    <header id="main-header" class="divider"></header>
 
-<body>
+    <main class="divider register-page">
+      <h2>Create Your Account</h2>
 
-<header
-  id="main-header"
-  class="divider"
-></header>
+      <div class="register-container">
+        <!-- LEFT COLUMN -->
 
-<main class="divider register-page">
+        <div class="register-left">
+          <form id="registerForm" class="register-form" novalidate>
+            <div id="registerMessages"></div>
 
-  <h2>Create Your Account</h2>
-
-  <div class="register-container">
-
-    <!-- LEFT COLUMN -->
-
-    <div class="register-left">
-
-      <form
-        id="registerForm"
-        class="register-form"
-        novalidate
-      >
-
-        <div id="registerMessages"></div>
-
-        <!-- ======================
+            <!-- ======================
              PERSONAL INFORMATION
         ======================= -->
 
-        <fieldset>
+            <fieldset>
+              <legend>Personal Information</legend>
 
-          <legend>Personal Information</legend>
+              <label for="fname"> First Name </label>
 
-          <label for="fname">
-            First Name
-          </label>
+              <input
+                id="fname"
+                name="fname"
+                type="text"
+                minlength="2"
+                autocomplete="given-name"
+                required
+              />
 
-          <input
-            id="fname"
-            name="fname"
-            type="text"
-            minlength="2"
-            autocomplete="given-name"
-            required
-          >
+              <small class="error-message"></small>
 
-          <small class="error-message"></small>
+              <label for="lname"> Last Name </label>
 
-          <label for="lname">
-            Last Name
-          </label>
+              <input
+                id="lname"
+                name="lname"
+                type="text"
+                minlength="2"
+                autocomplete="family-name"
+                required
+              />
 
-          <input
-            id="lname"
-            name="lname"
-            type="text"
-            minlength="2"
-            autocomplete="family-name"
-            required
-          >
+              <small class="error-message"></small>
 
-          <small class="error-message"></small>
+              <label for="email"> Email </label>
 
-          <label for="email">
-            Email
-          </label>
+              <input
+                id="email"
+                name="email"
+                type="email"
+                autocomplete="email"
+                required
+              />
 
-          <input
-            id="email"
-            name="email"
-            type="email"
-            autocomplete="email"
-            required
-          >
+              <small class="error-message"></small>
 
-          <small class="error-message"></small>
+              <label for="phone"> Phone Number </label>
 
-          <label for="phone">
-            Phone Number
-          </label>
+              <input
+                id="phone"
+                name="phone"
+                type="tel"
+                autocomplete="tel"
+                pattern="[0-9+\-() ]{7,20}"
+                required
+              />
 
-          <input
-            id="phone"
-            name="phone"
-            type="tel"
-            autocomplete="tel"
-            pattern="[0-9+\-() ]{7,20}"
-            required
-          >
+              <small class="error-message"></small>
+            </fieldset>
 
-          <small class="error-message"></small>
-
-        </fieldset>
-
-        <!-- ======================
+            <!-- ======================
              ADDRESS
         ======================= -->
 
-        <fieldset>
+            <fieldset>
+              <legend>Address</legend>
 
-          <legend>Address</legend>
+              <label for="street"> Street Address </label>
 
-          <label for="street">
-            Street Address
-          </label>
+              <input
+                id="street"
+                name="street"
+                type="text"
+                minlength="5"
+                autocomplete="street-address"
+                required
+              />
 
-          <input
-            id="street"
-            name="street"
-            type="text"
-            minlength="5"
-            autocomplete="street-address"
-            required
-          >
+              <small class="error-message"></small>
 
-          <small class="error-message"></small>
+              <label for="city"> City </label>
 
-          <label for="city">
-            City
-          </label>
+              <input
+                id="city"
+                name="city"
+                type="text"
+                autocomplete="address-level2"
+                required
+              />
 
-          <input
-            id="city"
-            name="city"
-            type="text"
-            autocomplete="address-level2"
-            required
-          >
+              <small class="error-message"></small>
 
-          <small class="error-message"></small>
+              <label for="state"> State </label>
 
-          <label for="state">
-            State
-          </label>
+              <input
+                id="state"
+                name="state"
+                type="text"
+                autocomplete="address-level1"
+                required
+              />
 
-          <input
-            id="state"
-            name="state"
-            type="text"
-            autocomplete="address-level1"
-            required
-          >
+              <small class="error-message"></small>
 
-          <small class="error-message"></small>
+              <label for="zip"> Zip Code </label>
 
-          <label for="zip">
-            Zip Code
-          </label>
+              <input
+                id="zip"
+                name="zip"
+                type="text"
+                pattern="[0-9]{4,10}"
+                autocomplete="postal-code"
+                required
+              />
 
-          <input
-            id="zip"
-            name="zip"
-            type="text"
-            pattern="[0-9]{4,10}"
-            autocomplete="postal-code"
-            required
-          >
+              <small class="error-message"></small>
+            </fieldset>
 
-          <small class="error-message"></small>
-
-        </fieldset>
-
-        <!-- ======================
+            <!-- ======================
              ACCOUNT
         ======================= -->
 
-        <fieldset>
+            <fieldset>
+              <legend>Account</legend>
 
-          <legend>Account</legend>
+              <label for="password"> Password </label>
 
-          <label for="password">
-            Password
-          </label>
+              <input
+                id="password"
+                name="password"
+                type="password"
+                minlength="8"
+                autocomplete="new-password"
+                required
+              />
 
-          <input
-            id="password"
-            name="password"
-            type="password"
-            minlength="8"
-            autocomplete="new-password"
-            required
-          >
+              <small class="error-message"></small>
 
-          <small class="error-message"></small>
+              <label for="confirmPassword"> Confirm Password </label>
 
-          <label for="confirmPassword">
-            Confirm Password
-          </label>
+              <input
+                id="confirmPassword"
+                name="confirmPassword"
+                type="password"
+                minlength="8"
+                autocomplete="new-password"
+                required
+              />
 
-          <input
-            id="confirmPassword"
-            name="confirmPassword"
-            type="password"
-            minlength="8"
-            autocomplete="new-password"
-            required
-          >
+              <small class="error-message"></small>
+            </fieldset>
 
-          <small class="error-message"></small>
+            <button id="registerButton" class="register-btn" type="submit">
+              Create Account
+            </button>
+          </form>
+        </div>
 
-        </fieldset>
+        <!-- RIGHT COLUMN -->
 
-        <button
-          id="registerButton"
-          class="register-btn"
-          type="submit"
-        >
-          Create Account
-        </button>
+        <aside class="register-right">
+          <h3>Why Register?</h3>
 
-      </form>
+          <ul>
+            <li>✔ Faster Checkout</li>
+            <li>✔ Save Your Shipping Address</li>
+            <li>✔ Exclusive Discounts</li>
+            <li>✔ Early Access to New Products</li>
+            <li>✔ Enter Our Monthly Giveaway</li>
+          </ul>
 
-    </div>
+          <a href="/" class="checkout-button"> Continue Shopping </a>
+        </aside>
+      </div>
+    </main>
 
-    <!-- RIGHT COLUMN -->
-
-    <aside class="register-right">
-
-      <h3>Why Register?</h3>
-
-      <ul>
-        <li>✔ Faster Checkout</li>
-        <li>✔ Save Your Shipping Address</li>
-        <li>✔ Exclusive Discounts</li>
-        <li>✔ Early Access to New Products</li>
-        <li>✔ Enter Our Monthly Giveaway</li>
-      </ul>
-
-      <a
-        href="/"
-        class="checkout-button"
-      >
-        Continue Shopping
-      </a>
-
-    </aside>
-
-  </div>
-
-</main>
-
-<footer id="main-footer"></footer>
-
-</body>
+    <footer id="main-footer"></footer>
+  </body>
 </html>

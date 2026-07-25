@@ -56,16 +56,12 @@ function renderCartContents() {
   }
 
   // Render cart
-  productList.innerHTML =
-    cartItems.map(cartItemTemplate).join("");
+  productList.innerHTML = cartItems.map(cartItemTemplate).join("");
 
   // Total
   const total = cartItems.reduce(
-    (sum, item) =>
-      sum +
-      Number(item.FinalPrice) *
-        (item.quantity || 1),
-    0
+    (sum, item) => sum + Number(item.FinalPrice) * (item.quantity || 1),
+    0,
   );
 
   cartTotal.innerHTML = `
@@ -75,26 +71,17 @@ function renderCartContents() {
 
   cartFooter.classList.remove("hide");
 
-  document
-    .querySelectorAll(".remove-item")
-    .forEach((button) => {
-      button.addEventListener(
-        "click",
-        removeItemFromCart
-      );
-    });
+  document.querySelectorAll(".remove-item").forEach((button) => {
+    button.addEventListener("click", removeItemFromCart);
+  });
 
   updateCartCount();
 }
 
 function cartItemTemplate(item) {
+  const quantity = item.quantity || 1;
 
-  const quantity =
-    item.quantity || 1;
-
-  const lineTotal =
-    Number(item.FinalPrice) *
-    quantity;
+  const lineTotal = Number(item.FinalPrice) * quantity;
 
   return `
     <li class="cart-card">
@@ -113,9 +100,7 @@ function cartItemTemplate(item) {
         class="cart-card__image"
       >
         <img
-          src="${item.Images?.PrimarySmall ||
-            item.Images?.PrimaryMedium ||
-            ""}"
+          src="${item.Images?.PrimarySmall || item.Images?.PrimaryMedium || ""}"
           alt="${item.Name}"
           loading="lazy"
         >
@@ -147,37 +132,22 @@ function cartItemTemplate(item) {
 }
 
 function removeItemFromCart(event) {
+  const id = event.target.dataset.id;
 
-  const id =
-    event.target.dataset.id;
+  const color = event.target.dataset.color;
 
-  const color =
-    event.target.dataset.color;
+  let cartItems = getLocalStorage("so-cart") || [];
 
-  let cartItems =
-    getLocalStorage("so-cart") || [];
-
-  const index =
-    cartItems.findIndex(
-      (item) =>
-        item.Id === id &&
-        (item.selectedColor?.ColorName || "") === color
-    );
+  const index = cartItems.findIndex(
+    (item) => item.Id === id && (item.selectedColor?.ColorName || "") === color,
+  );
 
   if (index !== -1) {
-
-    if (
-      (cartItems[index].quantity || 1) > 1
-    ) {
-
+    if ((cartItems[index].quantity || 1) > 1) {
       cartItems[index].quantity--;
-
     } else {
-
       cartItems.splice(index, 1);
-
     }
-
   }
 
   setLocalStorage("so-cart", cartItems);

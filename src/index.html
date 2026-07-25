@@ -72,74 +72,53 @@
           </a>
         </div>
       </section>
-      
+
       <!-- =====================================
      NEWSLETTER SIGN UP
 ====================================== -->
 
-<section class="newsletter">
+      <section class="newsletter">
+        <div class="newsletter-container">
+          <div class="newsletter-text">
+            <h2>Stay Connected!</h2>
 
-  <div class="newsletter-container">
+            <p>
+              Join the Sleep Outside Newsletter and receive camping tips,
+              exclusive discounts, new arrivals, and monthly giveaway
+              announcements.
+            </p>
 
-    <div class="newsletter-text">
+            <ul>
+              <li>✔ Monthly Outdoor Tips</li>
 
-      <h2>Stay Connected!</h2>
+              <li>✔ Exclusive Member Discounts</li>
 
-      <p>
-        Join the Sleep Outside Newsletter and receive
-        camping tips, exclusive discounts,
-        new arrivals, and monthly giveaway announcements.
-      </p>
+              <li>✔ Early Product Releases</li>
 
-      <ul>
+              <li>✔ Monthly Gear Giveaway</li>
+            </ul>
+          </div>
 
-        <li>✔ Monthly Outdoor Tips</li>
+          <div class="newsletter-card">
+            <h3>Subscribe Today</h3>
 
-        <li>✔ Exclusive Member Discounts</li>
+            <form id="newsletterForm" novalidate>
+              <input
+                id="newsletterEmail"
+                name="newsletterEmail"
+                type="email"
+                placeholder="Enter your email address"
+                autocomplete="email"
+                required
+              />
 
-        <li>✔ Early Product Releases</li>
+              <button id="newsletterButton" type="submit">Subscribe</button>
+            </form>
 
-        <li>✔ Monthly Gear Giveaway</li>
-
-      </ul>
-
-    </div>
-
-    <div class="newsletter-card">
-
-      <h3>Subscribe Today</h3>
-
-      <form
-        id="newsletterForm"
-        novalidate
-      >
-
-        <input
-          id="newsletterEmail"
-          name="newsletterEmail"
-          type="email"
-          placeholder="Enter your email address"
-          autocomplete="email"
-          required
-        >
-
-        <button
-          id="newsletterButton"
-          type="submit"
-        >
-          Subscribe
-        </button>
-
-      </form>
-
-      <div id="newsletterMessage"></div>
-
-    </div>
-
-  </div>
-
-</section>
-      
+            <div id="newsletterMessage"></div>
+          </div>
+        </div>
+      </section>
     </main>
     <footer id="main-footer"></footer>
   </body>
