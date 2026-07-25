@@ -21,9 +21,7 @@
     <div id="breadcrumb"></div>
 
     <main class="divider">
-
       <section class="product-detail">
-
         <!-- Brand -->
         <h2>Brand Name</h2>
 
@@ -32,7 +30,6 @@
 
         <!-- Product Image -->
         <div class="product-image-wrapper">
-
           <img
             id="productImage"
             src="../images/camping-products.jpg"
@@ -41,141 +38,89 @@
           />
 
           <!-- Discount Badge -->
-          <span
-            id="discountBadge"
-            class="discount-badge"
-          ></span>
-
+          <span id="discountBadge" class="discount-badge"></span>
         </div>
 
         <!-- Original Price -->
-        <p
-          id="retailPrice"
-          class="product-detail__retail"
-        ></p>
+        <p id="retailPrice" class="product-detail__retail"></p>
 
         <!-- Sale Price -->
-        <p
-          id="productPrice"
-          class="product-detail__price"
-        ></p>
+        <p id="productPrice" class="product-detail__price"></p>
 
         <!-- ==========================
              PRODUCT COLORS
         =========================== -->
 
         <div class="product-colors">
-
           <h4>Choose a Color</h4>
 
-          <div
-            id="colorSwatches"
-            class="color-swatches"
-          ></div>
+          <div id="colorSwatches" class="color-swatches"></div>
 
           <p class="selected-color">
             Selected:
             <strong id="productColor"></strong>
           </p>
-
         </div>
 
         <!-- Product Description -->
-        <p
-          id="productDesc"
-          class="product__description"
-        >
-          Description
-        </p>
+        <p id="productDesc" class="product__description">Description</p>
 
         <!-- Add to Cart -->
         <div class="product-detail__add">
-
-          <button
-            type="button"
-            id="addToCart"
-            data-id="productId"
-          >
+          <button type="button" id="addToCart" data-id="productId">
             Add to Cart
           </button>
         </div>
 
         <!-- CUSTOMER COMMENTS-->
 
-          <section class="product-comments">
+        <section class="product-comments">
+          <h3>Customer Reviews (<span id="commentCount">0</span>)</h3>
 
-            <h3>
-              Customer Reviews
-              (<span id="commentCount">0</span>)
-            </h3>
+          <!-- Comment Form -->
 
-            <!-- Comment Form -->
+          <form id="commentForm" class="comment-form" novalidate>
+            <label for="commentName"> Your Name </label>
 
-            <form
-              id="commentForm"
-              class="comment-form"
-              novalidate
-            >
+            <input
+              id="commentName"
+              type="text"
+              required
+              maxlength="40"
+              placeholder="John Smith"
+            />
 
-              <label for="commentName">
-                Your Name
-              </label>
+            <label for="commentRating"> Rating </label>
 
-              <input
-                id="commentName"
-                type="text"
-                required
-                maxlength="40"
-                placeholder="John Smith"
-              >
+            <select id="commentRating" required>
+              <option value="">Choose Rating</option>
+              <option value="5">★★★★★ Excellent</option>
+              <option value="4">★★★★☆ Very Good</option>
+              <option value="3">★★★☆☆ Good</option>
+              <option value="2">★★☆☆☆ Fair</option>
+              <option value="1">★☆☆☆☆ Poor</option>
+            </select>
 
-              <label for="commentRating">
-                Rating
-              </label>
+            <label for="commentText"> Comment </label>
 
-              <select
-                id="commentRating"
-                required
-              >
-                <option value="">Choose Rating</option>
-                <option value="5">★★★★★ Excellent</option>
-                <option value="4">★★★★☆ Very Good</option>
-                <option value="3">★★★☆☆ Good</option>
-                <option value="2">★★☆☆☆ Fair</option>
-                <option value="1">★☆☆☆☆ Poor</option>
-              </select>
+            <textarea
+              id="commentText"
+              rows="5"
+              maxlength="500"
+              placeholder="Share your experience with this product..."
+              required
+            ></textarea>
 
-              <label for="commentText">
-                Comment
-              </label>
-
-              <textarea
-                id="commentText"
-                rows="5"
-                maxlength="500"
-                placeholder="Share your experience with this product..."
-                required
-              ></textarea>
-
-              <button
-                type="submit"
-                id="commentButton"
-              >
-                Post Review
-              </button>
-
-            </form>
-            <!-- Success / Error Messages -->
-            <div id="commentMessage"></div>
-            <!-- Display Comments -->
-            <div id="commentsList"></div>
-
-          </section>
+            <button type="submit" id="commentButton">Post Review</button>
+          </form>
+          <!-- Success / Error Messages -->
+          <div id="commentMessage"></div>
+          <!-- Display Comments -->
+          <div id="commentsList"></div>
+        </section>
       </section>
-
     </main>
 
     <footer id="main-footer"></footer>
-
   </body>
 </html>

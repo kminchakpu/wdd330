@@ -20,11 +20,7 @@ async function init() {
     const searchTerm = search || category || "tents";
 
     // Create ProductList
-    const productList = new ProductList(
-      searchTerm,
-      dataSource,
-      listElement
-    );
+    const productList = new ProductList(searchTerm, dataSource, listElement);
 
     // Update page title
     if (search) {
