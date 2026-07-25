@@ -3,6 +3,7 @@ import {
   getLocalStorage,
   setLocalStorage,
 } from "./utils.mjs";
+
 import initSearch from "./search.js";
 import updateCartCount from "./cartCount.mjs";
 
@@ -26,44 +27,74 @@ function renderCartContents() {
   if (cartItems.length === 0) {
     productList.innerHTML = `
       <li class="empty-cart-card">
-        <img src="/images/cart.png" alt="Empty Cart" class="empty-cart-logo">
+        <img
+          src="/images/cart.png"
+          alt="Empty Cart"
+          class="empty-cart-logo"
+        >
+
         <h2>Your Cart is Empty</h2>
-        <p>It looks like you haven't added any gear yet.</p>
-        <a href="../index.html" class="continue-shopping">
+
+        <p>
+          It looks like you haven't added any gear yet.
+        </p>
+
+        <a
+          href="../index.html"
+          class="continue-shopping"
+        >
           Start Shopping
         </a>
       </li>
     `;
 
     cartFooter.classList.add("hide");
+
     updateCartCount();
+
     return;
   }
 
-  // Render cart items
-  productList.innerHTML = cartItems.map(cartItemTemplate).join("");
+  // Render cart
+  productList.innerHTML =
+    cartItems.map(cartItemTemplate).join("");
 
-  // Calculate cart total using quantity
+  // Total
   const total = cartItems.reduce(
     (sum, item) =>
-      sum + Number(item.FinalPrice) * (item.quantity || 1),
+      sum +
+      Number(item.FinalPrice) *
+        (item.quantity || 1),
     0
   );
 
-  cartTotal.innerHTML = `Total: <strong>$${total.toFixed(2)}</strong>`;
+  cartTotal.innerHTML = `
+    Total:
+    <strong>$${total.toFixed(2)}</strong>
+  `;
+
   cartFooter.classList.remove("hide");
 
-  // Remove item listeners
-  document.querySelectorAll(".remove-item").forEach((button) => {
-    button.addEventListener("click", removeItemFromCart);
-  });
+  document
+    .querySelectorAll(".remove-item")
+    .forEach((button) => {
+      button.addEventListener(
+        "click",
+        removeItemFromCart
+      );
+    });
 
   updateCartCount();
 }
 
 function cartItemTemplate(item) {
-  const quantity = item.quantity || 1;
-  const lineTotal = Number(item.FinalPrice) * quantity;
+
+  const quantity =
+    item.quantity || 1;
+
+  const lineTotal =
+    Number(item.FinalPrice) *
+    quantity;
 
   return `
     <li class="cart-card">
@@ -71,25 +102,36 @@ function cartItemTemplate(item) {
       <span
         class="remove-item"
         data-id="${item.Id}"
+        data-color="${item.selectedColor?.ColorName || ""}"
         title="Remove one"
       >
         &times;
       </span>
 
-      <a href="/product_pages/index.html?product=${item.Id}" class="cart-card__image">
+      <a
+        href="/product_pages/index.html?product=${item.Id}"
+        class="cart-card__image"
+      >
         <img
-          src="${item.Images?.PrimarySmall || item.Images?.PrimaryMedium || ""}"
+          src="${item.Images?.PrimarySmall ||
+            item.Images?.PrimaryMedium ||
+            ""}"
           alt="${item.Name}"
           loading="lazy"
         >
       </a>
 
       <a href="/product_pages/index.html?product=${item.Id}">
-        <h2 class="card__name">${item.NameWithoutBrand}</h2>
+        <h2 class="card__name">
+          ${item.NameWithoutBrand}
+        </h2>
       </a>
 
       <p class="cart-card__color">
-        ${item.Colors?.[0]?.ColorName || "N/A"}
+        Color:
+        <strong>
+          ${item.selectedColor?.ColorName || "N/A"}
+        </strong>
       </p>
 
       <p class="cart-card__quantity">
@@ -105,18 +147,37 @@ function cartItemTemplate(item) {
 }
 
 function removeItemFromCart(event) {
-  const id = event.target.dataset.id;
 
-  let cartItems = getLocalStorage("so-cart") || [];
+  const id =
+    event.target.dataset.id;
 
-  const index = cartItems.findIndex((item) => item.Id === id);
+  const color =
+    event.target.dataset.color;
+
+  let cartItems =
+    getLocalStorage("so-cart") || [];
+
+  const index =
+    cartItems.findIndex(
+      (item) =>
+        item.Id === id &&
+        (item.selectedColor?.ColorName || "") === color
+    );
 
   if (index !== -1) {
-    if ((cartItems[index].quantity || 1) > 1) {
+
+    if (
+      (cartItems[index].quantity || 1) > 1
+    ) {
+
       cartItems[index].quantity--;
+
     } else {
+
       cartItems.splice(index, 1);
+
     }
+
   }
 
   setLocalStorage("so-cart", cartItems);

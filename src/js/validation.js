@@ -171,3 +171,31 @@ export function validateZip(input) {
 
   return true;
 }
+
+/**
+ * Validate password length
+ */
+export function validatePassword(input) {
+  const password = input.value.trim();
+
+  if (password.length < 8) {
+    showError(input, "Password must be at least 8 characters.");
+    return false;
+  }
+
+  clearError(input);
+  return true;
+}
+
+/**
+ * Validate password confirmation
+ */
+export function validatePasswordMatch(passwordInput, confirmInput) {
+  if (passwordInput.value !== confirmInput.value) {
+    showError(confirmInput, "Passwords do not match.");
+    return false;
+  }
+
+  clearError(confirmInput);
+  return true;
+}
