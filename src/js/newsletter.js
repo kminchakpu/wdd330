@@ -1,14 +1,4 @@
-import React from 'react';
-  
-  const Newsletter = () =>  {
-	return (
-	  <div>
-	  </div>
-	);
-  }
-  
-  export default Newsletter;
-  // ======================================
+// ======================================
 // Newsletter Signup
 // ======================================
 
@@ -28,36 +18,21 @@ export default function initNewsletter() {
 
     const email = emailInput.value.trim().toLowerCase();
 
-    // -----------------------------
-    // Validate Email
-    // -----------------------------
-
+    // Validate email
     if (!validateEmail(email)) {
       showError("Please enter a valid email address.");
       return;
     }
 
-    // -----------------------------
-    // Get Subscribers
-    // -----------------------------
-
+    // Get current subscribers
     const subscribers =
       JSON.parse(localStorage.getItem("newsletter")) || [];
 
-    // -----------------------------
-    // Check Duplicate
-    // -----------------------------
-
+    // Prevent duplicates
     if (subscribers.includes(email)) {
-      showError(
-        "You're already subscribed to our newsletter."
-      );
+      showError("You're already subscribed to our newsletter.");
       return;
     }
-
-    // -----------------------------
-    // Save Email
-    // -----------------------------
 
     button.disabled = true;
     button.textContent = "Subscribing...";
@@ -69,10 +44,6 @@ export default function initNewsletter() {
       JSON.stringify(subscribers)
     );
 
-    // -----------------------------
-    // Success
-    // -----------------------------
-
     showSuccess(
       "🎉 Thank you for subscribing to the Sleep Outside Newsletter!"
     );
@@ -83,9 +54,9 @@ export default function initNewsletter() {
     button.textContent = "Subscribe";
   });
 
-  // =====================================
+  // -----------------------------
   // Helper Functions
-  // =====================================
+  // -----------------------------
 
   function validateEmail(email) {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
