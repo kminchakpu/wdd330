@@ -6,7 +6,7 @@ function convertToJson(response) {
 
     console.error("API Error:", data);
 
-    // Throw the API response so CheckoutProcess can display it
+    // Throw the API response so other classes can display the errors
     throw new Error(JSON.stringify(data));
   });
 }
@@ -15,7 +15,12 @@ const baseURL = import.meta.env.VITE_SERVER_URL;
 
 export default class ExternalServices {
   /**
-   * Get products by category
+   * Get all products in a category.
+   * Examples:
+   * tents
+   * backpacks
+   * hammocks
+   * sleeping-bags
    */
   async getData(category) {
     const response = await fetch(
@@ -28,7 +33,7 @@ export default class ExternalServices {
   }
 
   /**
-   * Get one product
+   * Get a single product by ID.
    */
   async findProductById(id) {
     const response = await fetch(
@@ -41,7 +46,7 @@ export default class ExternalServices {
   }
 
   /**
-   * Search products
+   * Search products.
    */
   async findProducts(query) {
     const response = await fetch(
@@ -54,7 +59,7 @@ export default class ExternalServices {
   }
 
   /**
-   * Submit checkout order
+   * Submit an order to the checkout API.
    */
   async checkout(order) {
     const response = await fetch(
@@ -65,6 +70,24 @@ export default class ExternalServices {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(order),
+      }
+    );
+
+    return convertToJson(response);
+  }
+
+  /**
+   * Register a new customer.
+   */
+  async createUser(user) {
+    const response = await fetch(
+      `${baseURL}users/`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(user),
       }
     );
 

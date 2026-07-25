@@ -4,47 +4,108 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sleep Outside | Product Make and Name</title>
+
     <link rel="stylesheet" href="../css/style.css" />
+
     <link
       href="https://fonts.googleapis.com/css2?family=Play:wght@400;700&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
       rel="stylesheet"
     />
+
     <script src="../js/product.js" type="module"></script>
   </head>
 
   <body>
     <header class="divider" id="main-header"></header>
+
     <div id="breadcrumb"></div>
+
     <main class="divider">
+
       <section class="product-detail">
+
+        <!-- Brand -->
         <h2>Brand Name</h2>
+
+        <!-- Product Name -->
         <h3 class="divider">Product Name</h3>
+
+        <!-- Product Image -->
         <div class="product-image-wrapper">
+
           <img
             id="productImage"
             src="../images/camping-products.jpg"
             alt="Sleep Outside Camping Products"
             class="divider"
           />
+
           <!-- Discount Badge -->
-          <span id="discountBadge" class="discount-badge"></span>
+          <span
+            id="discountBadge"
+            class="discount-badge"
+          ></span>
+
         </div>
 
         <!-- Original Price -->
-        <p id="retailPrice" class="product-detail__retail"></p>
+        <p
+          id="retailPrice"
+          class="product-detail__retail"
+        ></p>
 
         <!-- Sale Price -->
-        <p id="productPrice" class="product-detail__price"></p>
-        <p id="productColor" class="product__color">Color</p>
-        <p id="productDesc" class="product__description">Description</p>
+        <p
+          id="productPrice"
+          class="product-detail__price"
+        ></p>
 
+        <!-- ==========================
+             PRODUCT COLORS
+        =========================== -->
+
+        <div class="product-colors">
+
+          <h4>Choose a Color</h4>
+
+          <div
+            id="colorSwatches"
+            class="color-swatches"
+          ></div>
+
+          <p class="selected-color">
+            Selected:
+            <strong id="productColor"></strong>
+          </p>
+
+        </div>
+
+        <!-- Product Description -->
+        <p
+          id="productDesc"
+          class="product__description"
+        >
+          Description
+        </p>
+
+        <!-- Add to Cart -->
         <div class="product-detail__add">
-          <button type="button" id="addToCart" data-id="productId">
+
+          <button
+            type="button"
+            id="addToCart"
+            data-id="productId"
+          >
             Add to Cart
           </button>
+
         </div>
+
       </section>
+
     </main>
+
     <footer id="main-footer"></footer>
+
   </body>
 </html>

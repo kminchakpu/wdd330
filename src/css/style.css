@@ -232,7 +232,7 @@ button {
   margin: auto;
 }
 
-.product-detail img {
+.product-image-wrapper img {
   width: 100%;
 }
 
@@ -905,4 +905,325 @@ opacity:1;
 transform:scale(1);
 }
 
+}
+
+/* ==========================================
+   REGISTRATION PAGE
+========================================== */
+
+.register-page {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+.register-page h2 {
+  margin-top: 0;
+  font-family: var(--font-headline);
+  color: var(--dark-grey);
+}
+
+/* ---------- Layout ---------- */
+
+.register-container {
+  display: grid;
+  grid-template-columns: 2.3fr 1fr;
+  gap: 2rem;
+  margin-top: 2rem;
+  align-items: start;
+}
+
+/* ---------- Left Side ---------- */
+
+.register-form {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 2rem;
+  box-shadow: rgba(0,0,0,.24) 0px 3px 8px;
+}
+
+.register-form fieldset {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.register-form legend {
+  font-weight: bold;
+  color: var(--dark-grey);
+}
+
+.register-form label {
+  display: block;
+  margin-top: 1rem;
+  font-weight: bold;
+}
+
+.register-form input {
+  width: 100%;
+  padding: .8rem;
+  margin-top: .4rem;
+  margin-bottom: 1rem;
+
+  border: 1px solid #ccc;
+  border-radius: 6px;
+
+  box-sizing: border-box;
+
+  transition:
+    border-color .25s ease,
+    box-shadow .25s ease;
+}
+
+/* ---------- Validation ---------- */
+
+.register-form input.valid {
+  border: 2px solid #2e7d32;
+  background: #f5fff6;
+}
+
+.register-form input.invalid {
+  border: 2px solid #d93025;
+  background: #fff8f8;
+}
+
+/* ---------- Error Message ---------- */
+
+.register-form .error-message {
+  display: block;
+  min-height: 18px;
+
+  margin-top: -.6rem;
+  margin-bottom: .8rem;
+
+  color: #d93025;
+  font-size: .85rem;
+}
+
+/* ---------- Button ---------- */
+
+.register-btn,
+#registerButton {
+
+  width: 100%;
+  padding: 1rem;
+  margin-top: 1rem;
+  background: var(--dark-grey);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: bold;
+  transition: all .25s ease;
+}
+
+.register-btn:hover,
+#registerButton:hover {
+  background: #d48806;
+  transform: translateY(-2px);
+}
+
+#registerButton:disabled {
+
+  opacity: .6;
+  cursor: wait;
+}
+
+/* ---------- Right Side ---------- */
+
+.register-right {
+
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 2rem;
+  box-shadow: rgba(0,0,0,.24) 0px 3px 8px;
+  position: sticky;
+  top: 1rem;
+}
+
+.register-right h3 {
+  margin-top: 0;
+  color: var(--dark-grey);
+}
+
+.register-right ul {
+  padding-left: 1.2rem;
+  line-height: 2;
+}
+
+/* ==========================
+   REGISTRATION MESSAGES
+========================== */
+
+#registerMessages {
+  margin-bottom: 1.5rem;
+}
+
+.message {
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 8px;
+  font-weight: 600;
+  animation: fadeIn 0.3s ease;
+}
+
+.message.success {
+  background: #e8f5e9;
+  color: #2e7d32;
+  border: 1px solid #81c784;
+}
+
+.message.error {
+  background: #ffebee;
+  color: #c62828;
+  border: 1px solid #ef9a9a;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+/* ---------- Mobile ---------- */
+
+@media (max-width:900px){
+
+.register-container{
+
+grid-template-columns:1fr;
+
+}
+
+.register-right{
+position:static;
+
+}
+
+}
+
+
+/* ==========================
+   CART ANIMATION
+========================== */
+
+#cartIcon svg {
+  transform-origin: center;
+}
+
+.cart-bounce svg {
+  animation: cartBounce 0.7s ease;
+}
+
+@keyframes cartBounce {
+
+  0% {
+    transform: scale(1);
+  }
+
+  20% {
+    transform: scale(1.2) rotate(-12deg);
+  }
+
+  40% {
+    transform: scale(.9) rotate(12deg);
+  }
+
+  60% {
+    transform: scale(1.15) rotate(-10deg);
+  }
+
+  80% {
+    transform: scale(.95) rotate(6deg);
+  }
+
+  100% {
+    transform: scale(1) rotate(0deg);
+  }
+
+}
+
+.cart-count-pop {
+  animation: cartCountPop 0.45s ease;
+}
+
+@keyframes cartCountPop {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.4);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* ==========================================
+   PRODUCT COLOR SWATCHS
+========================================== */
+
+.product-colors {
+  margin: 1.5rem 0;
+}
+
+.product-colors h4 {
+  margin-bottom: .75rem;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--dark-grey);
+}
+
+.color-swatches {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .75rem;
+  margin-bottom: 1rem;
+}
+
+.color-swatch {
+  width: 42px;
+  height: 42px;
+
+  object-fit: cover;
+
+  border: 2px solid #d9d9d9;
+  border-radius: 50%;
+
+  cursor: pointer;
+
+  transition: all .25s ease;
+}
+
+.color-swatch:hover {
+  transform: scale(1.12);
+  border-color: var(--dark-grey);
+}
+
+.color-swatch.selected {
+  border: 3px solid #556b2f;
+  box-shadow: 0 0 0 3px rgba(85,107,47,.18);
+}
+
+.selected-color {
+  font-size: .95rem;
+  font-weight: 600;
+  color: var(--dark-grey);
+}
+
+.selected-color strong {
+  color: #556b2f;
 }
